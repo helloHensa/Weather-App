@@ -12,30 +12,31 @@
 <section class="h-100 w-100 d-flex align-items-center justify-content-center">
     <section class="">
         <nav class="navbar p-0">
-            <div class="container text-light bg-secondary p-3">
+            <div class="container text-light bg-secondary p-3 rounded-top-2">
                 <span>
                     Weather App
                 </span>
                 <button class="btn" type="button">
-                    <span class="text-white"><i class="bi bi-arrow-left text-light"></i> Change Location</span>
+                    <span class="text-white back"><i class="bi bi-arrow-left text-light"></i> Change Location</span>
                 </button>
             </div>
         </nav>
         
         
         <!-- getting location -->
-        <section class=" bg-dark" id="padding">
+        <section class="bg-dark rounded-bottom-2 welcome" id="padding">
         
-        <div class="container text-center px-5">
-            <div>
-                <input type="text" placeholder="Enter city name" class="w-100 text-center">
+        <div class="container text-center px-4">
+            <div class="py-4 text-start">
+                <span class="text-light">Please enter a valid city name</span>
+                <input type="text" placeholder="Enter city name" class="form-control w-100 text-center p-2 rounded-2">
             </div>
-            <div class="d-flex justify-content-center align-items-center">
-                <span class="text-light position-absolute">or</span>
-                <hr class="text-white">
-            </div>
-            <div>
-                <button class="btn btn-primary w-100">Get Device Location</button>
+            
+            <div class="separator"></div>
+        
+            
+            <div class="py-4">
+                <button class="btn btn-primary w-100 p-2">Get Device Location</button>
             </div>
         </div>
         </section>
@@ -59,7 +60,7 @@
                                     </div>
                                 </div>
                                 <!-- Hourly forecast -->
-                                <div class="row border d-flex flex-nowrap overflow-scroll pb-3" id="piesek">
+                                <div class="row border d-flex flex-nowrap overflow-scroll pb-3 w-100" id="piesek">
                                     
                                     
                                 </div>
@@ -67,7 +68,7 @@
 
                             </div>
                             <!-- Moving days -->
-                            <div class="col-md-5 d-flex flex-row flex-md-column overflow-auto justify-content-lg-evenly py-3 py-lg-0">
+                            <div class="col-md-5 d-flex flex-row flex-md-column overflow-auto justify-content-lg-evenly py-3 py-lg-0" id="kotek">
                                 <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
                                     <div class="col-3 d-flex justify-content-center">
                                         <p class="my-1">Mon</p>
@@ -106,96 +107,8 @@
                                     <div class="col-3  d-flex justify-content-center">32deg</div>
                                 </div>
                                 </button>
-                                <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
-                                    <div class="col-3  d-flex justify-content-center">
-                                        <p class="my-1">Mon</p>
-                                        
-                                    </div>
-                                    <div class="col-9 col-lg-6">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6 d-flex align-items-center">
-                                                <img src="icons/clouds_sun_sunny_icon.svg" class="">
-                                            </div>
-                                            <div class="col-6 align-items-center d-none d-lg-flex">
-                                                <p class="my-1 ">sunny</p>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="col-3">32deg</div>
-                                </div>
-                                <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
-                                    <div class="col-3">
-                                        <p class="my-1">Mon</p>
-                                        
-                                    </div>
-                                    <div class="col-9 col-lg-6">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6 d-flex align-items-center">
-                                                <img src="icons/clouds_sun_sunny_icon.svg" class="">
-                                            </div>
-                                            <div class="col-6 align-items-center d-none d-lg-flex">
-                                                <p class="my-1 ">sunny</p>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="col-3">32deg</div>
-                                </div>
-                                <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
-                                    <div class="col-3">
-                                        <p class="my-1">Mon</p>
-                                        
-                                    </div>
-                                    <div class="col-9 col-lg-6">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6 d-flex align-items-center">
-                                                <img src="icons/clouds_sun_sunny_icon.svg" class="">
-                                            </div>
-                                            <div class="col-6 align-items-center d-none d-lg-flex">
-                                                <p class="my-1 ">sunny</p>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="col-3">32deg</div>
-                                </div>
-                                <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
-                                    <div class="col-3">
-                                        <p class="my-1">Mon</p>
-                                        
-                                    </div>
-                                    <div class="col-9 col-lg-6">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6 d-flex align-items-center">
-                                                <img src="icons/clouds_sun_sunny_icon.svg" class="">
-                                            </div>
-                                            <div class="col-6 align-items-center d-none d-lg-flex">
-                                                <p class="my-1 ">sunny</p>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="col-3">32deg</div>
-                                </div>
-                                <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
-                                    <div class="col-3">
-                                        <p class="my-1">Mon</p>
-                                        
-                                    </div>
-                                    <div class="col-9 col-lg-6">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6 d-flex align-items-center">
-                                                <img src="icons/clouds_sun_sunny_icon.svg" class="">
-                                            </div>
-                                            <div class="col-6 align-items-center d-none d-lg-flex">
-                                                <p class="my-1 ">sunny</p>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="col-3">32deg</div>
-                                </div>
+                                
+                               
                             </div>
                         </div>
                     </div>

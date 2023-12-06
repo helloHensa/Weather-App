@@ -9,13 +9,13 @@
 //   }
 
 let hoursContainer = document.getElementById("piesek");
-
+let daysContainer = document.getElementById("kotek");
 let zmienna = "Dynamiczny tekst";
 
 
 
 
-for (let i = 0; i < 23; i++){
+for (let i = 0; i < 3; i++){
     let html = `<div class="col border border-primary " >
 <div class="row">
     <div class="col col-12">${i+1}:00</div>
@@ -24,4 +24,28 @@ for (let i = 0; i < 23; i++){
     <div class="col col-12">-2deg</div>
 </div>`;
 hoursContainer.innerHTML += html;
+}
+
+for (let i = 0; i < 5; i++){
+    let html = `<button type="button" class="btn btn-outline-primary text-white p-0 ">
+    <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
+        <div class="col-3 d-flex justify-content-center">
+            <p class="my-1">Mon</p>
+            
+        </div>
+        <div class="col-12 col-lg-6 ">
+            <div class="row">
+                <div class="col-12 col-lg-6 d-flex align-items-center ">
+                    <img src="icons/clouds_sun_sunny_icon.svg" class="">
+                </div>
+                <div class="col-6 align-items-center d-none d-lg-flex">
+                    <p class="my-1 ">sunny</p>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-3  d-flex justify-content-center">32deg</div>
+    </div>
+    </button>`;
+daysContainer.innerHTML += html;
 }
