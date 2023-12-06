@@ -20,7 +20,7 @@ for (let i = 0; i < 3; i++){
 <div class="row">
     <div class="col col-12">${i+1}:00</div>
     <div class="col col-12">40%</div>
-    <div class="col col-12"><img src="icons/clouds_sun_sunny_icon.svg" alt="" class="w-100"></div>
+    <div class="col col-12"><img src="Icons/clouds_sun_sunny_icon.svg" alt="" class="w-100"></div>
     <div class="col col-12">-2deg</div>
 </div>`;
 hoursContainer.innerHTML += html; 
@@ -36,7 +36,7 @@ for (let i = 0; i < 5; i++){
         <div class="col-12 col-lg-6 ">
             <div class="row">
                 <div class="col-12 col-lg-6 d-flex align-items-center ">
-                    <img src="icons/clouds_sun_sunny_icon.svg" class="">
+                    <img src="Icons/clouds_sun_sunny_icon.svg" class="">
                 </div>
                 <div class="col-6 align-items-center d-none d-lg-flex">
                     <p class="my-1 ">sunny</p>
