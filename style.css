@@ -6,7 +6,7 @@ html,body{
 }
 .welcome{
     display:none;
-}
+} 
 #padding{
     width:100vw;
     max-width: 400px;

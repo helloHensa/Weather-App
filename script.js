@@ -23,7 +23,7 @@ for (let i = 0; i < 3; i++){
     <div class="col col-12"><img src="icons/clouds_sun_sunny_icon.svg" alt="" class="w-100"></div>
     <div class="col col-12">-2deg</div>
 </div>`;
-hoursContainer.innerHTML += html;
+hoursContainer.innerHTML += html; 
 }
 
 for (let i = 0; i < 5; i++){
