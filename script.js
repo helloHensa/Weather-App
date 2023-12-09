@@ -27,19 +27,19 @@ hoursContainer.innerHTML += html;
 }
 
 for (let i = 0; i < 6; i++){
-    let html = `<button type="button" class="btn btn-outline-primary text-white p-0  h-100">
-    <div class="row border d-flex align-items-center flex-column flex-lg-row mx-0 h-100">
+    let html = `<button type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
+    <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0">
         <div class="col-3 d-flex justify-content-center">
             <p class="my-1">Mon</p>
             
         </div>
-        <div class="col-12 col-lg-6 ">
+        <div class="col-12 col-md-6">
             <div class="row">
-                <div class="col-12 col-lg-6 d-flex align-items-center ">
-                    <img src="Icons/clouds_sun_sunny_icon.svg" class="">
-                </div>
-                <div class="col-6 align-items-center d-none d-lg-flex">
-                    <p class="my-1 ">sunny</p>
+                <div class="d-flex align-items-center justify-content-center">
+                    <img src="Icons/clouds_sun_sunny_icon.svg" class="dayimg">
+                
+                
+                    <p class="mb-1 d-md-flex d-none">sunny</p>
                 </div>
             </div>
            
