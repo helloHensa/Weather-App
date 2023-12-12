@@ -39,15 +39,11 @@ html,body{
     font-size:calc(3vw + 35px);
     
 }
-.daycontainer{
-    height: 100%;
-}
+
 .dayimg{
-    width: 500%;
+    width: 100%;
 }
-.suncontainer{
-    width: 200%;
-}
+
 @media  (min-width: 768px){
     .dayimg{
         width: 40%;
