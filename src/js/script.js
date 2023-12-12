@@ -33,7 +33,7 @@ for (let i = 0; i < 6; i++){
             <p class="my-1">Mon</p>
             
         </div>
-        <div class="col-6 col-md-6">
+        <div class="col-12 col-md-6">
             <div class="row">
                 <div class="d-flex align-items-center justify-content-center suncontainer">
                     <img src="Icons/clouds_sun_sunny_icon.svg" class="dayimg">
