@@ -38,9 +38,12 @@ html,body{
 .tempNow{
     font-size:calc(3vw + 35px);
 }
-@media  (min-width: 768px){
+.dayimg{
+    width: 40%;
+}
+@media  (max-width: 768px){
     .dayimg{
-        width:40%;
+        width:100%;
     }
     
 }
