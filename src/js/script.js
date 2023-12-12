@@ -28,14 +28,14 @@ hoursContainer.innerHTML += html;
 
 for (let i = 0; i < 6; i++){
     let html = `<div type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
-    <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0">
+    <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
         <div class="col-3 d-flex justify-content-center">
             <p class="my-1">Mon</p>
             
         </div>
         <div class="col-6 col-md-6">
             <div class="row">
-                <div class="d-flex align-items-center justify-content-center">
+                <div class="d-flex align-items-center justify-content-center suncontainer">
                     <img src="Icons/clouds_sun_sunny_icon.svg" class="dayimg">
                 
                 
