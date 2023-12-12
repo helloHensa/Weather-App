@@ -27,7 +27,7 @@ hoursContainer.innerHTML += html;
 }
 
 for (let i = 0; i < 6; i++){
-    let html = `<button type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
+    let html = `<div type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
     <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0">
         <div class="col-3 d-flex justify-content-center">
             <p class="my-1">Mon</p>
@@ -46,6 +46,6 @@ for (let i = 0; i < 6; i++){
         </div>
         <div class="col-3  d-flex justify-content-center">32deg</div>
     </div>
-    </button>`;
+    </div>`;
 daysContainer.innerHTML += html;
 }
