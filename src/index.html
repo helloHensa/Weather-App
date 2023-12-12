@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section class="h-100  d-flex align-items-center justify-content-center">
+    <section class="">
+        <nav class="navbar p-0">
+            <div class="container text-light bg-secondary p-3 rounded-top-2">
+                <span>
+                    Weather App
+                </span>
+                <button class="btn" type="button">
+                    <span class="text-white back"><i class="bi bi-arrow-left text-light"></i> Change Location</span>
+                </button>
+            </div>
+        </nav>
+        
+        
+        <!-- getting location -->
+        <section class="bg-dark rounded-bottom-2 welcome" id="padding">
+        
+        <div class="container text-center px-4">
+            <div class="py-4 text-start">
+                <span class="text-light">Please enter a valid city name</span>
+                <input type="text" placeholder="Enter city name" class="form-control w-100 text-center p-2 rounded-2">
+            </div>
+            
+            <div class="separator"></div>
+        
+            
+            <div class="py-4">
+                <button class="btn btn-primary w-100 p-2">Get Device Location</button>
+            </div>
+        </div>
+        </section> 
+        
+        
+        
+        
+        
+        <div class="container bg-dark py-3 px-0 weather">
+
+                    <div class="container text-center">
+                        <div class="row text-light border border-warning d-flex">
+                            <div class="col-lg-7 border border-danger align-self-center d-flex flex-column">
+                                <p class="h1">
+                                    Today/Now
+                                </p>
+                                <div class="row">
+                                     <div class="col d-flex flex-column justify-content-around align-items-start ps-5 ">
+                                         <div class=""><h1 class="tempNow fw-bold">21°</h1></div>
+                                         <div class="">properties</div>
+                                        
+                                         
+                                    </div>
+                                    <div class="col"><img src="Icons/clouds_sun_sunny_icon.svg" alt="img" class=""></div>
+                                </div>
+                                <!-- Hourly forecast -->
+                                
+                                <div class="row border d-flex flex-nowrap overflow-scroll m-0 p-0 pb-3 " id="piesek">
+                                    
+                                    
+                                
+                                </div>
+
+                            </div>
+                            <!-- Moving days -->
+                            
+                            <div class="col-lg-5 d-flex flex-row flex-lg-column overflow-scroll justify-content-lg-evenly py-3 py-lg-0" id="kotek">
+                                
+                                <button type="button" class="btn btn-outline-primary text-white p-0 ">
+                                <div class="row border d-flex align-items-center d-flex flex-column flex-lg-row mx-0">
+                                    <div class="col-3 d-flex justify-content-center">
+                                        <p class="my-1">Mon</p>
+                                        
+                                    </div>
+                                    <div class="col-12 col-lg-6 ">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6 d-flex align-items-center ">
+                                                <img src="Icons/clouds_sun_sunny_icon.svg" class="">
+                                            </div>
+                                            <div class="col-6 align-items-center d-none d-lg-flex">
+                                                <p class="my-1 ">sunny</p>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-3  d-flex justify-content-center">32deg</div>
+                                </div>
+                                </button>
+                                
+                               
+                            
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+</section> 
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
