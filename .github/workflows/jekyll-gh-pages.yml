@@ -56,5 +56,8 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main  # Ustaw odpowiednią gałąź, w której chcesz deployować (może być inna, zależnie od Twojej konfiguracji)
+          folder: dist  
+          
           
