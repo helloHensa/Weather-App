@@ -583,7 +583,10 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 // for (let i = 0; i < 5; i++) {
 //     console.log(i);
 //   }
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _bootstrap = require("bootstrap");
+var _cloudsSunSunnyIconSvg = require("~src/icons/clouds_sun_sunny_icon.svg");
+var _cloudsSunSunnyIconSvgDefault = parcelHelpers.interopDefault(_cloudsSunSunnyIconSvg);
 let hoursContainer = document.getElementById("piesek");
 let daysContainer = document.getElementById("kotek");
 let zmienna = "Dynamiczny tekst";
@@ -592,7 +595,7 @@ for(let i = 0; i < 23; i++){
 <div class="row">
     <div class="col col-12">${i + 1}:00</div>
     <div class="col col-12">40%</div>
-    <div class="col col-12"><img src="dist/clouds_sun_sunny_icon.svg" alt="" class="w-75"></div>
+    <div class="col col-12"><img src="${(0, _cloudsSunSunnyIconSvgDefault.default)}" alt="" class="w-75"></div>
     <div class="col col-12">-2deg</div>
 </div>`;
     hoursContainer.innerHTML += html;
@@ -607,7 +610,7 @@ for(let i = 0; i < 6; i++){
         <div class="col-12 col-md-6">
             <div class="row">
                 <div class="d-flex align-items-center justify-content-center suncontainer">
-                    <img src="src/icons/clouds_sun_sunny_icon.svg" class="dayimg">
+                    <img src="${(0, _cloudsSunSunnyIconSvgDefault.default)}" class="dayimg">
                 
                 
                     <p class="mb-1 d-md-flex d-none">sunny</p>
@@ -621,7 +624,7 @@ for(let i = 0; i < 6; i++){
     daysContainer.innerHTML += html;
 }
 
-},{"bootstrap":"h36JB"}],"h36JB":[function(require,module,exports) {
+},{"bootstrap":"h36JB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","~src/icons/clouds_sun_sunny_icon.svg":"k2ic4"}],"h36JB":[function(require,module,exports) {
 /*!
   * Bootstrap v5.3.2 (https://getbootstrap.com/)
   * Copyright 2011-2023 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
@@ -6289,6 +6292,44 @@ var createPopper = /*#__PURE__*/ (0, _createPopperJs.popperGenerator)({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["4FFYD","dV6cC"], "dV6cC", "parcelRequirebbde")
+},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k2ic4":[function(require,module,exports) {
+module.exports = require("9da8d5b49eec9f08").getBundleURL("2MSMO") + "clouds_sun_sunny_icon.0984abe0.svg" + "?" + Date.now();
+
+},{"9da8d5b49eec9f08":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+}
+// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}]},["4FFYD","dV6cC"], "dV6cC", "parcelRequirebbde")
 
 //# sourceMappingURL=index.e82f28a0.js.map

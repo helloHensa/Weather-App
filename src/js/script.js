@@ -8,7 +8,10 @@
 //     console.log(i);
 //   }
 
+
+
 import 'bootstrap';
+import img from '~src/icons/clouds_sun_sunny_icon.svg';
 
 let hoursContainer = document.getElementById("piesek");
 let daysContainer = document.getElementById("kotek");
@@ -22,7 +25,7 @@ for (let i = 0; i < 23; i++){
 <div class="row">
     <div class="col col-12">${i+1}:00</div>
     <div class="col col-12">40%</div>
-    <div class="col col-12"><img src="dist/clouds_sun_sunny_icon.svg" alt="" class="w-75"></div>
+    <div class="col col-12"><img src="${img}" alt="" class="w-75"></div>
     <div class="col col-12">-2deg</div>
 </div>`;
 hoursContainer.innerHTML += html; 
@@ -38,7 +41,7 @@ for (let i = 0; i < 6; i++){
         <div class="col-12 col-md-6">
             <div class="row">
                 <div class="d-flex align-items-center justify-content-center suncontainer">
-                    <img src="src/icons/clouds_sun_sunny_icon.svg" class="dayimg">
+                    <img src="${img}" class="dayimg">
                 
                 
                     <p class="mb-1 d-md-flex d-none">sunny</p>
