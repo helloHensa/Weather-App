@@ -43,27 +43,27 @@ jobs:
           path: dist/ # Ustaw odpowiednią ścieżkę, jeśli używasz innej struktury folderów
 
   # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-      - name: Display structure of downloaded files
-        run: ls -R    
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: dist   # nazwa artefaktu, upewnij się, że to odpowiada nazwie użytej w upload-artifact
+  # deploy:
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: dist
+  #     - name: Display structure of downloaded files
+  #       run: ls -R    
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v3
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         artifact_name: dist   # nazwa artefaktu, upewnij się, że to odpowiada nazwie użytej w upload-artifact
 
           
           
