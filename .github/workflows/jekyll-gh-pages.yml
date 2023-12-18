@@ -57,10 +57,7 @@ jobs:
         uses: actions/deploy-pages@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          timeout: 1200000  # opcjonalny, ustaw zgodnie z potrzebami
-          error_count: 5     # opcjonalny, ustaw zgodnie z potrzebami
-          reporting_interval: 5000  # opcjonalny, ustaw zgodnie z potrzebami
           artifact_name: dist   # nazwa artefaktu, upewnij się, że to odpowiada nazwie użytej w upload-artifact
-          preview: false  # opcjonalny, ustaw zgodnie z potrzebami
+
           
           
