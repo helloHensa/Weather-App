@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build with Parcel
-        run: npm run dev  # Ustaw odpowiednią komendę, jeśli używasz innej komendy do budowania w package.json
+        run: npm run build # Ustaw odpowiednią komendę, jeśli używasz innej komendy do budowania w package.json
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
