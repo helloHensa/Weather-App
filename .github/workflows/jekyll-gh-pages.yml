@@ -45,6 +45,9 @@ jobs:
 
   # Deployment job
   deploy:
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -63,9 +66,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: dist   # nazwa artefaktu, upewnij się, że to odpowiada nazwie użytej w upload-artifact
+           # nazwa artefaktu, upewnij się, że to odpowiada nazwie użytej w upload-artifact
 
           
           
