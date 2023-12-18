@@ -8,6 +8,8 @@
 //     console.log(i);
 //   }
 
+import 'bootstrap';
+
 let hoursContainer = document.getElementById("piesek");
 let daysContainer = document.getElementById("kotek");
 let zmienna = "Dynamiczny tekst";
@@ -20,7 +22,7 @@ for (let i = 0; i < 23; i++){
 <div class="row">
     <div class="col col-12">${i+1}:00</div>
     <div class="col col-12">40%</div>
-    <div class="col col-12"><img src="Icons/clouds_sun_sunny_icon.svg" alt="" class="w-75"></div>
+    <div class="col col-12"><img src="~Icons/clouds_sun_sunny_icon.svg" alt="" class="w-75"></div>
     <div class="col col-12">-2deg</div>
 </div>`;
 hoursContainer.innerHTML += html; 
@@ -36,7 +38,7 @@ for (let i = 0; i < 6; i++){
         <div class="col-12 col-md-6">
             <div class="row">
                 <div class="d-flex align-items-center justify-content-center suncontainer">
-                    <img src="Icons/clouds_sun_sunny_icon.svg" class="dayimg">
+                    <img src="src/icons/clouds_sun_sunny_icon.svg" class="dayimg">
                 
                 
                     <p class="mb-1 d-md-flex d-none">sunny</p>
