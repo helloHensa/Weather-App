@@ -585,7 +585,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 //   }
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _bootstrap = require("bootstrap");
-var _cloudsSunSunnyIconSvg = require("~src/icons/clouds_sun_sunny_icon.svg");
+var _cloudsSunSunnyIconSvg = require("../icons/clouds_sun_sunny_icon.svg");
 var _cloudsSunSunnyIconSvgDefault = parcelHelpers.interopDefault(_cloudsSunSunnyIconSvg);
 let hoursContainer = document.getElementById("piesek");
 let daysContainer = document.getElementById("kotek");
@@ -624,7 +624,7 @@ for(let i = 0; i < 6; i++){
     daysContainer.innerHTML += html;
 }
 
-},{"bootstrap":"h36JB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","~src/icons/clouds_sun_sunny_icon.svg":"k2ic4"}],"h36JB":[function(require,module,exports) {
+},{"bootstrap":"h36JB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../icons/clouds_sun_sunny_icon.svg":"k2ic4"}],"h36JB":[function(require,module,exports) {
 /*!
   * Bootstrap v5.3.2 (https://getbootstrap.com/)
   * Copyright 2011-2023 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
