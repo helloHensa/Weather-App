@@ -56,8 +56,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: dist
-          path: dist
+          name:
+          
       - name: Display structure of downloaded files
         run: ls -R    
       - name: Deploy to GitHub Pages
