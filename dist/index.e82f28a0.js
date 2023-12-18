@@ -585,7 +585,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 //   }
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _bootstrap = require("bootstrap");
-var _cloudsSunSunnyIconSvg = require("../icons/clouds_sun_sunny_icon.svg");
+var _cloudsSunSunnyIconSvg = require("../Icons/clouds_sun_sunny_icon.svg");
 var _cloudsSunSunnyIconSvgDefault = parcelHelpers.interopDefault(_cloudsSunSunnyIconSvg);
 let hoursContainer = document.getElementById("piesek");
 let daysContainer = document.getElementById("kotek");
@@ -624,7 +624,7 @@ for(let i = 0; i < 6; i++){
     daysContainer.innerHTML += html;
 }
 
-},{"bootstrap":"h36JB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../icons/clouds_sun_sunny_icon.svg":"k2ic4"}],"h36JB":[function(require,module,exports) {
+},{"bootstrap":"h36JB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../Icons/clouds_sun_sunny_icon.svg":"b5QA5"}],"h36JB":[function(require,module,exports) {
 /*!
   * Bootstrap v5.3.2 (https://getbootstrap.com/)
   * Copyright 2011-2023 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
@@ -6292,10 +6292,10 @@ var createPopper = /*#__PURE__*/ (0, _createPopperJs.popperGenerator)({
     defaultModifiers: defaultModifiers
 }); // eslint-disable-next-line import/no-unused-modules
 
-},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k2ic4":[function(require,module,exports) {
-module.exports = require("9da8d5b49eec9f08").getBundleURL("2MSMO") + "clouds_sun_sunny_icon.0984abe0.svg" + "?" + Date.now();
+},{"./createPopper.js":"cHuNp","./modifiers/eventListeners.js":"hBKsL","./modifiers/popperOffsets.js":"6I679","./modifiers/computeStyles.js":"gDlm2","./modifiers/applyStyles.js":"4iMn4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b5QA5":[function(require,module,exports) {
+module.exports = require("3ccfc8d60c78d8b5").getBundleURL("2MSMO") + "clouds_sun_sunny_icon.ec51c535.svg" + "?" + Date.now();
 
-},{"9da8d5b49eec9f08":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+},{"3ccfc8d60c78d8b5":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {

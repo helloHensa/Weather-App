@@ -11,7 +11,7 @@
 
 
 import 'bootstrap';
-import img from '../icons/clouds_sun_sunny_icon.svg';
+import img from '../Icons/clouds_sun_sunny_icon.svg';
 
 let hoursContainer = document.getElementById("piesek");
 let daysContainer = document.getElementById("kotek");
