@@ -10,10 +10,7 @@ on:
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -39,8 +36,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: pies
-          path: dist
+          name: dist
+          path: /
       
            # Ustaw odpowiednią ścieżkę, jeśli używasz innej struktury folderów
 
@@ -54,7 +51,7 @@ jobs:
 
     - uses: actions/download-artifact@v4
       with:
-        name: pies
+        name: dist
 
     - name: Display structure of downloaded files
       run: ls -R
