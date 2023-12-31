@@ -20,10 +20,10 @@ jobs:
       - name: Build with Parcel
         run: npm run build
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: site
-          path: dist/
+          path: dist/artifact/
 
   deploy:
     runs-on: ubuntu-latest
