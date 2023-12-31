@@ -41,6 +41,8 @@ jobs:
         with:
           name: dist
           path: dist/
+      - name: Display structure of downloaded files
+        run: ls -R
            # Ustaw odpowiednią ścieżkę, jeśli używasz innej struktury folderów
 
   # Deployment job
