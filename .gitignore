@@ -3,3 +3,5 @@ node_modules
 .parcel-cache/data.mdb
 .parcel-cache/
 dist
+_config.yml
+package-lock.json
