@@ -39,8 +39,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: github-pages
-          path: dist/
+          name: pies
+          path: dist
       
            # Ustaw odpowiednią ścieżkę, jeśli używasz innej struktury folderów
 
@@ -54,7 +54,7 @@ jobs:
 
     - uses: actions/download-artifact@v4
       with:
-        name: dist/github-pages
+        name: pies
 
     - name: Display structure of downloaded files
       run: ls -R
