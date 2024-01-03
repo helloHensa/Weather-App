@@ -1,53 +1,53 @@
-name: Deploy Parcel with GitHub Pages
+# name: Deploy Parcel with GitHub Pages
 
-on: push
+# on: push
 
-permissions:
-  id-token: write
-  pages: write
+# permissions:
+#   id-token: write
+#   pages: write
 
-jobs:
-  build:
-    name: Build project
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v4
+# jobs:
+#   build:
+#     name: Build project
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#       - name: Install Node.js and npm
+#         uses: actions/setup-node@v4
 
-      - name: Install dependencies
-        run: npm install
-      - name: Build with Parcel
-        run: npm run build
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: site
-          path: dist/
+#       - name: Install dependencies
+#         run: npm install
+#       - name: Build with Parcel
+#         run: npm run build
+#       - name: Upload artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: site
+#           path: dist/
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+#   deploy:
+#     needs: build
+#     runs-on: ubuntu-latest
     
-    permissions:
-      pages: write
-      id-token: write
+#     permissions:
+#       pages: write
+#       id-token: write
     
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+#     environment:
+#       name: github-pages
+#       url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: site
-      - name: Display structure of downloaded files
-        run: ls -R
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+#     steps:
+#       - name: Download artifact
+#         uses: actions/download-artifact@v4
+#         with:
+#           name: site
+#       - name: Display structure of downloaded files
+#         run: ls -R
+#       - name: Deploy to GitHub Pages
+#         id: deployment
+#         uses: actions/deploy-pages@v4
         
 
        
