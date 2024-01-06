@@ -13257,16 +13257,26 @@ html, body {
   }
 }
 
-#piesek, .kontener {
+#piesek {
   width: max-content;
+  margin: 0;
+  padding: 0;
+}
+
+.kontener {
+  width: max-content;
+  margin: 0;
 }
 
 #mychart {
-  max-height: 200px;
+  max-height: 100px;
+  padding-bottom: 10px;
+  padding-left: 42px;
+  padding-right: 37px;
 }
 
 #towide {
-  max-width: 75px;
+  max-width: 80px;
   margin: 0;
   padding: 0;
 }

@@ -593,16 +593,6 @@ let hoursContainer = document.getElementById("piesek");
 let daysContainer = document.getElementById("kotek");
 let zmienna = "Dynamiczny tekst";
 let graph = document.getElementById("mychart");
-for(let i = 0; i < 23; i++){
-    let html = `<div class="col border border-primary" id="towide">
-<div class="row" id="towideContent">
-    <div class="col col-12">${i + 1}:00</div>
-    <div class="col col-12"><img src="${(0, _cloudsSunSunnyIconSvgDefault.default)}" alt="" class="w-75"></div>
-    <div class="col col-12">-2deg</div>
-    <div class="col col-12">40%</div>
-</div>`;
-    hoursContainer.innerHTML += html;
-}
 async function getWeatherData(city) {
     const apiKey = "5a43b5303a0107f4cf1ced3ef800b104";
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`);
@@ -620,17 +610,27 @@ async function drawWeatherChart(city) {
     // Znajdź najbliższą godzinę od teraz
     const currentHourIndex = allEntries.findIndex((entry)=>new Date(entry.dt_txt).getTime() - now >= 0);
     // Wybierz 24 punkty danych od najbliższej godziny
-    const next24HoursEntries = allEntries.slice(currentHourIndex, currentHourIndex + 24);
+    const next24HoursEntries = allEntries.slice(currentHourIndex, currentHourIndex + 20);
     // Przygotuj etykiety dla osi X, pokazujące godziny
     const hoursLabels = [];
     const temperaturesCelsius = [];
     // Przekształć temperatury z Kelwinów na stopnie Celsiusa
     next24HoursEntries.forEach((entry)=>{
         const entryTime = new Date(entry.dt_txt);
-        const hourLabel = entryTime.getHours().toString().padStart(2, "0") + ":00";
+        const hourLabel = entryTime.getHours().toString().padStart(0) + ":00";
         hoursLabels.push(hourLabel);
-        temperaturesCelsius.push(entry.main.temp - 273.15);
+        temperaturesCelsius.push((entry.main.temp - 273.15).toFixed(0));
     });
+    for(let i = 0; i < temperaturesCelsius.length; i++){
+        let html = `<div class="col" id="towide">
+  <div class="row" id="towideContent">
+      <div class="col col-12">${hoursLabels[i]}</div>
+      <div class="col col-12"></div>
+      <div class="col col-12"><img src="${(0, _cloudsSunSunnyIconSvgDefault.default)}" alt="" class="w-75"></div>
+      
+  </div>`;
+        hoursContainer.innerHTML += html;
+    }
     new (0, _autoDefault.default)(graph, {
         type: "line",
         data: {
@@ -644,25 +644,37 @@ async function drawWeatherChart(city) {
             ]
         },
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
                 x: {
-                    position: "bottom",
+                    type: "category",
+                    labels: temperaturesCelsius.map((temp)=>temp + "\xb0"),
                     ticks: {
-                        stepSize: 1,
-                        maxTicksLimit: 24
-                    }
+                        color: "white",
+                        font: {
+                            size: 20
+                        }
+                    },
+                    grid: {
+                        color: ""
+                    },
+                    position: "top"
                 },
                 y: {
-                    beginAtZero: true
+                    display: false
                 }
             }
         }
     });
 }
 // Wywołaj funkcję z aktualnym miastem
-drawWeatherChart("orzesze");
+drawWeatherChart("colombia");
 for(let i = 0; i < 6; i++){
     let html = `<div type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
     <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">

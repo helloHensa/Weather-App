@@ -22,16 +22,7 @@ let graph = document.getElementById("mychart");
 
 
 
-for (let i = 0; i < 23; i++){
-    let html = `<div class="col border border-primary" id="towide">
-<div class="row" id="towideContent">
-    <div class="col col-12">${i+1}:00</div>
-    <div class="col col-12"><img src="${img}" alt="" class="w-75"></div>
-    <div class="col col-12">-2deg</div>
-    <div class="col col-12">40%</div>
-</div>`;
-hoursContainer.innerHTML += html; 
-}
+
 
 
 async function getWeatherData(city) {
@@ -56,7 +47,7 @@ async function getWeatherData(city) {
     const currentHourIndex = allEntries.findIndex(entry => (new Date(entry.dt_txt).getTime() - now) >= 0);
   
     // Wybierz 24 punkty danych od najbliższej godziny
-    const next24HoursEntries = allEntries.slice(currentHourIndex, currentHourIndex + 24);
+    const next24HoursEntries = allEntries.slice(currentHourIndex, currentHourIndex + 20);
   
     // Przygotuj etykiety dla osi X, pokazujące godziny
     const hoursLabels = [];
@@ -65,13 +56,22 @@ async function getWeatherData(city) {
     // Przekształć temperatury z Kelwinów na stopnie Celsiusa
     next24HoursEntries.forEach(entry => {
       const entryTime = new Date(entry.dt_txt);
-      const hourLabel = entryTime.getHours().toString().padStart(2, '0') + ':00';
+      const hourLabel = entryTime.getHours().toString().padStart(0) + ':00';
   
       hoursLabels.push(hourLabel);
-      temperaturesCelsius.push(entry.main.temp - 273.15);
+      temperaturesCelsius.push((entry.main.temp - 273.15).toFixed(0));
     });
   
-   
+    for (let i = 0; i < temperaturesCelsius.length; i++){
+      let html = `<div class="col" id="towide">
+  <div class="row" id="towideContent">
+      <div class="col col-12">${hoursLabels[i]}</div>
+      <div class="col col-12"></div>
+      <div class="col col-12"><img src="${img}" alt="" class="w-75"></div>
+      
+  </div>`;
+  hoursContainer.innerHTML += html; 
+  }
 
   
     
@@ -80,33 +80,54 @@ async function getWeatherData(city) {
         data: {
           labels: hoursLabels,
           datasets: [{
-            label: 'Temperature',
+            label: "Temperature",
             data: temperaturesCelsius,
-            borderWidth: 1
+            borderWidth: 1,
+            
+            
+            
           }]
         },
         options: {
+          plugins: {
+            legend: {
+              display: false,
+              
+            },
+          },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
+            
             x: {
-              
-              position: 'bottom',
+              type: 'category',
+              labels: temperaturesCelsius.map(temp => temp + '°'),
               ticks: {
-                stepSize: 1,
-                maxTicksLimit: 24
-              }
+                color: 'white',
+                font:{
+                  size: 20,
+                }
+              },
+              grid: {
+                
+                color: '',
+              },
+              position: 'top',
+              // ticks: {
+              //   stepSize: 1,
+              //   maxTicksLimit: 24
+              // }
             },
             y: {
-              beginAtZero: true
+              display: false
             }
-          }
+          },
         }
       });
   }
   
   // Wywołaj funkcję z aktualnym miastem
-  drawWeatherChart('orzesze');
+  drawWeatherChart('colombia');
 
 
 

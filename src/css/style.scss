@@ -75,17 +75,24 @@ html,body{
 
 #piesek{
     width: max-content;
+    padding: 0;
+    margin: 0;
 }
 .kontener{
     width: max-content;
+    margin: 0;
 }
 #mychart{
-    max-height: 200px;
+    max-height: 100px;
+    padding-left: 42px;
+    padding-right: 37px;
+    padding-bottom:10px;
+
 }
 #towide{
     margin:0;
     padding: 0;
-    max-width: 75px;
+    max-width: 80px;
 }
 #towideContent{
     
