@@ -127,7 +127,7 @@ async function getWeatherData(city) {
   }
   
   // Wywołaj funkcję z aktualnym miastem
-  drawWeatherChart('colombia');
+  drawWeatherChart('orzesze');
 
 
 
