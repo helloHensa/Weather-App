@@ -674,7 +674,7 @@ async function drawWeatherChart(city) {
     });
 }
 // Wywołaj funkcję z aktualnym miastem
-drawWeatherChart("colombia");
+drawWeatherChart("orzesze");
 for(let i = 0; i < 6; i++){
     let html = `<div type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
     <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
