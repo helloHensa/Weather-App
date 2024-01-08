@@ -8,22 +8,41 @@
 //     console.log(i);
 //   }
 
-
-
 import 'bootstrap';
 import img from '../Icons/clouds_sun_sunny_icon.svg';
 import Chart from 'chart.js/auto';
 
-
-let hoursContainer = document.getElementById("piesek");
-let daysContainer = document.getElementById("kotek");
+let hoursContainer = document.getElementById("hourly");
+let hoursRainContainer = document.getElementById("hourlyRain");
+let daysContainer = document.getElementById("daily");
 let zmienna = "Dynamiczny tekst";
 let graph = document.getElementById("mychart");
 
+function mapWeatherIcon(iconCode) {
+  const iconMapping = {
+    '01d': 'bi-sun',         // Bezchmurne niebo (dzień)
+    '01n': 'bi-moon',        // Bezchmurne niebo (noc)
+    '02d': 'bi-cloud-sun',   // Niewielkie zachmurzenie (dzień)
+    '02n': 'bi-cloud-moon',  // Niewielkie zachmurzenie (noc)
+    '03d': 'bi-cloud',       // Częściowe zachmurzenie (dzień)
+    '03n': 'bi-cloud',       // Częściowe zachmurzenie (noc)
+    '04d': 'bi-cloudy',      // Zachmurzenie (dzień)
+    '04n': 'bi-cloudy',      // Zachmurzenie (noc)
+    '09d': 'bi-cloud-drizzle', // Deszcz (dzień)
+    '09n': 'bi-cloud-drizzle', // Deszcz (noc)
+    '10d': 'bi-cloud-rain',  // Deszcz (intensywny, dzień)
+    '10n': 'bi-cloud-rain',  // Deszcz (intensywny, noc)
+    '11d': 'bi-cloud-lightning', // Burza (dzień)
+    '11n': 'bi-cloud-lightning', // Burza (noc)
+    '13d': 'bi-snow',        // Opady śniegu (dzień)
+    '13n': 'bi-snow',        // Opady śniegu (noc)
+    '50d': 'bi-fog',         // Mgła (dzień)
+    '50n': 'bi-fog',         // Mgła (noc)
+  };
+  const iconClass = iconMapping[iconCode];
 
-
-
-
+  return iconClass || 'bi-question';
+}
 
 async function getWeatherData(city) {
     const apiKey = '5a43b5303a0107f4cf1ced3ef800b104';
@@ -40,41 +59,37 @@ async function getWeatherData(city) {
     // Wyciągnij wszystkie punkty danych z prognozą pogody
     const allEntries = weatherData.list;
   
-    // Pobierz aktualny czas
-    const now = new Date().getTime();
-  
-    // Znajdź najbliższą godzinę od teraz
-    const currentHourIndex = allEntries.findIndex(entry => (new Date(entry.dt_txt).getTime() - now) >= 0);
-  
-    // Wybierz 24 punkty danych od najbliższej godziny
-    const next24HoursEntries = allEntries.slice(currentHourIndex, currentHourIndex + 20);
-  
     // Przygotuj etykiety dla osi X, pokazujące godziny
     const hoursLabels = [];
     const temperaturesCelsius = [];
+    const snow = [];
+    const weatherIconCode = [];
   
-    // Przekształć temperatury z Kelwinów na stopnie Celsiusa
-    next24HoursEntries.forEach(entry => {
-      const entryTime = new Date(entry.dt_txt);
-      const hourLabel = entryTime.getHours().toString().padStart(0) + ':00';
-  
-      hoursLabels.push(hourLabel);
-      temperaturesCelsius.push((entry.main.temp - 273.15).toFixed(0));
-    });
+    for (let i=0; i<20; i++){
+        const entry = allEntries[i];
+        const entryTime = new Date(entry.dt_txt);
+        const hourLabel = entryTime.getHours().toString() + ':00';
+
+        hoursLabels.push(hourLabel);
+        temperaturesCelsius.push((entry.main.temp - 273.15).toFixed(0));
+        snow.push(entry.pop * 100);
+        weatherIconCode.push(entry.weather[0].icon);
+    }
   
     for (let i = 0; i < temperaturesCelsius.length; i++){
+      const iconClass = mapWeatherIcon(weatherIconCode[i]);
+
+      
       let html = `<div class="col" id="towide">
   <div class="row" id="towideContent">
       <div class="col col-12">${hoursLabels[i]}</div>
       <div class="col col-12"></div>
-      <div class="col col-12"><img src="${img}" alt="" class="w-75"></div>
+      <div class="col col-12"><i class="iconSize bi ${iconClass}"></i></div>
       
   </div>`;
   hoursContainer.innerHTML += html; 
   }
 
-  
-    
     new Chart(graph, {
         type: 'line',
         data: {
@@ -83,22 +98,17 @@ async function getWeatherData(city) {
             label: "Temperature",
             data: temperaturesCelsius,
             borderWidth: 1,
-            
-            
-            
           }]
         },
         options: {
           plugins: {
             legend: {
               display: false,
-              
             },
           },
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            
             x: {
               type: 'category',
               labels: temperaturesCelsius.map(temp => temp + '°'),
@@ -113,10 +123,6 @@ async function getWeatherData(city) {
                 color: '',
               },
               position: 'top',
-              // ticks: {
-              //   stepSize: 1,
-              //   maxTicksLimit: 24
-              // }
             },
             y: {
               display: false
@@ -124,13 +130,17 @@ async function getWeatherData(city) {
           },
         }
       });
-  }
-  
+      for (let i = 0; i < temperaturesCelsius.length; i++){
+        let html = `<div class="col" id="towide ">
+      <div class="row" id="towideContent">
+        <div class="col col-12"><i class="bi bi-droplet text-info"></i>${snow[i]}%</div>
+      </div>`;
+      hoursRainContainer.innerHTML += html; 
+      }
+    
+}
   // Wywołaj funkcję z aktualnym miastem
   drawWeatherChart('orzesze');
-
-
-
 
 for (let i = 0; i < 6; i++){
     let html = `<div type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">

@@ -13266,19 +13266,23 @@ html, body {
 .kontener {
   width: max-content;
   margin: 0;
+  padding: 0 0 10px;
 }
 
 #mychart {
   max-height: 100px;
-  padding-bottom: 10px;
-  padding-left: 42px;
-  padding-right: 37px;
+  padding-left: 32px;
+  padding-right: 35px;
 }
 
 #towide {
   max-width: 80px;
   margin: 0;
   padding: 0;
+}
+
+.iconSize {
+  font-size: 2rem;
 }
 
 /*# sourceMappingURL=index.2e8c441c.css.map */

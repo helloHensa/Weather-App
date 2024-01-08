@@ -81,19 +81,28 @@ html,body{
 .kontener{
     width: max-content;
     margin: 0;
+    padding: 0;
+    padding-bottom: 10px;
 }
 #mychart{
     max-height: 100px;
-    padding-left: 42px;
-    padding-right: 37px;
-    padding-bottom:10px;
+    padding-left: 32px;
+    padding-right: 35px;
+    
 
 }
 #towide{
     margin:0;
     padding: 0;
     max-width: 80px;
+    
+}
+#rainSnow{
+    
 }
 #towideContent{
     
+}
+.iconSize{
+    font-size: 2rem;
 }

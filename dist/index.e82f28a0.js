@@ -589,10 +589,35 @@ var _cloudsSunSunnyIconSvg = require("../Icons/clouds_sun_sunny_icon.svg");
 var _cloudsSunSunnyIconSvgDefault = parcelHelpers.interopDefault(_cloudsSunSunnyIconSvg);
 var _auto = require("chart.js/auto");
 var _autoDefault = parcelHelpers.interopDefault(_auto);
-let hoursContainer = document.getElementById("piesek");
-let daysContainer = document.getElementById("kotek");
+let hoursContainer = document.getElementById("hourly");
+let hoursRainContainer = document.getElementById("hourlyRain");
+let daysContainer = document.getElementById("daily");
 let zmienna = "Dynamiczny tekst";
 let graph = document.getElementById("mychart");
+function mapWeatherIcon(iconCode) {
+    const iconMapping = {
+        "01d": "bi-sun",
+        "01n": "bi-moon",
+        "02d": "bi-cloud-sun",
+        "02n": "bi-cloud-moon",
+        "03d": "bi-cloud",
+        "03n": "bi-cloud",
+        "04d": "bi-cloudy",
+        "04n": "bi-cloudy",
+        "09d": "bi-cloud-drizzle",
+        "09n": "bi-cloud-drizzle",
+        "10d": "bi-cloud-rain",
+        "10n": "bi-cloud-rain",
+        "11d": "bi-cloud-lightning",
+        "11n": "bi-cloud-lightning",
+        "13d": "bi-snow",
+        "13n": "bi-snow",
+        "50d": "bi-fog",
+        "50n": "bi-fog"
+    };
+    const iconClass = iconMapping[iconCode];
+    return iconClass || "bi-question";
+}
 async function getWeatherData(city) {
     const apiKey = "5a43b5303a0107f4cf1ced3ef800b104";
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`);
@@ -605,28 +630,27 @@ async function drawWeatherChart(city) {
     const weatherData = await getWeatherData(city);
     // Wyciągnij wszystkie punkty danych z prognozą pogody
     const allEntries = weatherData.list;
-    // Pobierz aktualny czas
-    const now = new Date().getTime();
-    // Znajdź najbliższą godzinę od teraz
-    const currentHourIndex = allEntries.findIndex((entry)=>new Date(entry.dt_txt).getTime() - now >= 0);
-    // Wybierz 24 punkty danych od najbliższej godziny
-    const next24HoursEntries = allEntries.slice(currentHourIndex, currentHourIndex + 20);
     // Przygotuj etykiety dla osi X, pokazujące godziny
     const hoursLabels = [];
     const temperaturesCelsius = [];
-    // Przekształć temperatury z Kelwinów na stopnie Celsiusa
-    next24HoursEntries.forEach((entry)=>{
+    const snow = [];
+    const weatherIconCode = [];
+    for(let i = 0; i < 20; i++){
+        const entry = allEntries[i];
         const entryTime = new Date(entry.dt_txt);
-        const hourLabel = entryTime.getHours().toString().padStart(0) + ":00";
+        const hourLabel = entryTime.getHours().toString() + ":00";
         hoursLabels.push(hourLabel);
         temperaturesCelsius.push((entry.main.temp - 273.15).toFixed(0));
-    });
+        snow.push(entry.pop * 100);
+        weatherIconCode.push(entry.weather[0].icon);
+    }
     for(let i = 0; i < temperaturesCelsius.length; i++){
+        const iconClass = mapWeatherIcon(weatherIconCode[i]);
         let html = `<div class="col" id="towide">
   <div class="row" id="towideContent">
       <div class="col col-12">${hoursLabels[i]}</div>
       <div class="col col-12"></div>
-      <div class="col col-12"><img src="${(0, _cloudsSunSunnyIconSvgDefault.default)}" alt="" class="w-75"></div>
+      <div class="col col-12"><i class="iconSize bi ${iconClass}"></i></div>
       
   </div>`;
         hoursContainer.innerHTML += html;
@@ -672,6 +696,13 @@ async function drawWeatherChart(city) {
             }
         }
     });
+    for(let i = 0; i < temperaturesCelsius.length; i++){
+        let html = `<div class="col" id="towide ">
+      <div class="row" id="towideContent">
+        <div class="col col-12"><i class="bi bi-droplet text-info"></i>${snow[i]}%</div>
+      </div>`;
+        hoursRainContainer.innerHTML += html;
+    }
 }
 // Wywołaj funkcję z aktualnym miastem
 drawWeatherChart("orzesze");
