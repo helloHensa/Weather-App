@@ -57,10 +57,12 @@ html,body{
     
 }
 .tempNow{
-    font-size:calc(3vw + 35px);
+    font-size: 4em;
     
 }
-
+#currMaxMinDate{
+    text-align: left;
+}
 .dayimg{
     width: 100%;
 }
@@ -86,7 +88,7 @@ html,body{
 }
 #mychart{
     max-height: 100px;
-    padding-left: 32px;
+    padding-left: 38px;
     padding-right: 35px;
     
 
