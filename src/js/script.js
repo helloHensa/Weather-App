@@ -43,7 +43,7 @@ function mapWeatherIcon(iconCode) {
 const apiKey = '5a43b5303a0107f4cf1ced3ef800b104';
 
 async function getCityCoordinates(cityName) {
-  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`);
+  const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`);
   const city = await response.json();
   return { lat: city[0].lat, lon: city[0].lon };
 }
