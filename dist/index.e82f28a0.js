@@ -575,14 +575,6 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"dV6cC":[function(require,module,exports) {
-//template Strings:
-// var zmienna = "Dynamiczny tekst";
-// var html = `<p>${zmienna}</p>`;
-// document.getElementById("mojElement").innerHTML = html;
-//Petla for:
-// for (let i = 0; i < 5; i++) {
-//     console.log(i);
-//   }
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _bootstrap = require("bootstrap");
 var _cloudsSunSunnyIconSvg = require("../Icons/clouds_sun_sunny_icon.svg");
@@ -593,13 +585,13 @@ var _dateFns = require("date-fns");
 let hoursContainer = document.getElementById("hourly");
 let hoursRainContainer = document.getElementById("hourlyRain");
 let daysContainer = document.getElementById("daily");
-let zmienna = "Dynamiczny tekst";
 let graph = document.getElementById("mychart");
 let currentTemp = document.getElementById("currentTemp");
 let currMax = document.getElementById("currMax");
 let currMin = document.getElementById("currMin");
 let currFeels = document.getElementById("currFeels");
 let currDate = document.getElementById("currDate");
+let currImg = document.getElementById("currImg");
 function mapWeatherIcon(iconCode) {
     const iconMapping = {
         "01d": "bi-sun",
@@ -625,60 +617,69 @@ function mapWeatherIcon(iconCode) {
     return iconClass || "bi-question";
 }
 const apiKey = "5a43b5303a0107f4cf1ced3ef800b104";
+async function getCityCoordinates(cityName) {
+    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`);
+    const city = await response.json();
+    return {
+        lat: city[0].lat,
+        lon: city[0].lon
+    };
+}
 async function getWeatherData(city) {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
+    const coordinates = await getCityCoordinates(city);
+    const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`);
     const data = await response.json();
     console.log(data);
     return data;
 }
-async function getCurrentWeather(city) {
-    const currentResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
-    const currentData = await currentResponse.json();
-    console.log(currentData);
-    return currentData;
-}
 async function drawWeatherChart(city) {
-    // Pobierz dane pogodowe
+    //taking weather data
     const weatherData = await getWeatherData(city);
-    const currentWeatherData = await getCurrentWeather(city);
-    const date = (0, _dateFns.fromUnixTime)(currentWeatherData.dt);
+    //Today and now
+    const date = (0, _dateFns.fromUnixTime)(weatherData.current.dt);
     const dayOfWeek = (0, _dateFns.format)(date, "EEE");
     const hour = (0, _dateFns.format)(date, "HH:mm");
     console.log(`Dzie\u{144} tygodnia: ${dayOfWeek} ${hour}`);
-    let degrees = currentWeatherData.main.temp.toFixed(0);
+    let degrees = weatherData.current.temp.toFixed(0);
     currentTemp.innerHTML = degrees + "\xb0";
     currDate.innerHTML = dayOfWeek + "., " + hour;
-    // Wyciągnij wszystkie punkty danych z prognozą pogody
-    const allEntries = weatherData.list;
-    // Przygotuj etykiety dla osi X, pokazujące godziny
+    currMax.innerHTML = weatherData.daily[0].temp.max.toFixed(0) + "\xb0/";
+    currMin.innerHTML = weatherData.daily[0].temp.min.toFixed(0) + "\xb0";
+    currFeels.innerHTML = "Fells like " + weatherData.daily[0].temp.min.toFixed(0) + "\xb0";
+    //Current weather icon
+    const currIconCode = weatherData.current.weather[0].icon;
+    const iconClass = mapWeatherIcon(currIconCode);
+    console.log(iconClass);
+    currImg.innerHTML = '<i class="' + iconClass + '"></i>';
+    //Select all hourly entries
+    const allHourEntries = weatherData.hourly;
+    // preparing arrays for hourly forecast
     const hoursLabels = [];
     const temperaturesCelsius = [];
-    const snow = [];
+    const pop = [];
     const weatherIconCode = [];
-    for(let i = 0; i < 9; i++){
-        const entry = allEntries[i];
-        const entryTime = new Date(entry.dt_txt);
-        const hourLabel = entryTime.getHours().toString() + ":00";
-        let temperature = entry.main.temp.toFixed(0);
+    for(let i = 0; i < 25; i++){
+        const entry = allHourEntries[i];
+        const date = (0, _dateFns.fromUnixTime)(entry.dt);
+        const hourLabel = (0, _dateFns.format)(date, "HH:mm");
+        let temperature = entry.temp.toFixed(0);
         if (temperature == "-0") temperature = "0";
-        // const maxtemp = Math.max(...temperature);
-        // console.log(`Największa wartość: ${maxtemp}`);
         hoursLabels.push(hourLabel);
         temperaturesCelsius.push(temperature);
-        snow.push(entry.pop * 100);
+        pop.push((entry.pop * 100).toFixed(0));
         weatherIconCode.push(entry.weather[0].icon);
     }
+    //hourly forecast's hours and images
     for(let i = 0; i < temperaturesCelsius.length; i++){
         const iconClass = mapWeatherIcon(weatherIconCode[i]);
         let html = `<div class="col" id="towide">
-  <div class="row" id="towideContent">
-      <div class="col col-12">${hoursLabels[i]}</div>
-      <div class="col col-12"></div>
-      <div class="col col-12"><i class="iconSize bi ${iconClass}"></i></div>
-      
-  </div>`;
+    <div class="row" id="towideContent">
+    <div class="col col-12">${hoursLabels[i]}</div>
+    <div class="col col-12"><i class="iconSize bi ${iconClass}"></i></div>
+    </div>`;
         hoursContainer.innerHTML += html;
     }
+    //temparatue chart
     new (0, _autoDefault.default)(graph, {
         type: "line",
         data: {
@@ -720,38 +721,34 @@ async function drawWeatherChart(city) {
             }
         }
     });
+    //probability of precipitation
     for(let i = 0; i < temperaturesCelsius.length; i++){
         let html = `<div class="col" id="towide ">
-      <div class="row" id="towideContent">
-        <div class="col col-12"><i class="bi bi-droplet text-info"></i>${snow[i]}%</div>
-      </div>`;
+    <div class="row" id="towideContent">
+    <div class="col col-12"><i class="bi bi-droplet text-info"></i>${pop[i]}%</div>
+    </div>`;
         hoursRainContainer.innerHTML += html;
     }
     for(let i = 0; i < 6; i++){
         let html = `<div type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
-      <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
-          <div class="col-3 d-flex justify-content-center">
-              <p class="my-1">Mon</p>
-              
-          </div>
-          <div class="col-12 col-md-6">
-              <div class="row">
-                  <div class="d-flex align-items-center justify-content-center suncontainer">
-                      <img src="${(0, _cloudsSunSunnyIconSvgDefault.default)}" class="dayimg">
-                  
-                  
-                      <p class="mb-1 d-md-flex d-none">sunny</p>
-                  </div>
-              </div>
-            
-          </div>
-          <div class="col-3  d-flex justify-content-center">32deg</div>
+    <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
+      <div class="col-3 d-flex justify-content-center">
+          <p class="my-1">Mon</p>              
       </div>
-      </div>`;
+      <div class="col-12 col-md-6">
+        <div class="row">
+          <div class="d-flex align-items-center justify-content-center suncontainer">
+            <img src="${(0, _cloudsSunSunnyIconSvgDefault.default)}" class="dayimg">                                   
+            <p class="mb-1 d-md-flex d-none">sunny</p>
+          </div>
+        </div>           
+      </div>
+      <div class="col-3  d-flex justify-content-center">32deg</div>
+    </div>
+  </div>`;
         daysContainer.innerHTML += html;
     }
 }
-// Wywołaj funkcję z aktualnym miastem
 drawWeatherChart("orzesze");
 
 },{"bootstrap":"h36JB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../Icons/clouds_sun_sunny_icon.svg":"b5QA5","chart.js/auto":"d8NN9","date-fns":"dU215"}],"h36JB":[function(require,module,exports) {

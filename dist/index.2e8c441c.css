@@ -13251,10 +13251,6 @@ html, body {
   text-align: left;
 }
 
-.dayimg {
-  width: 100%;
-}
-
 @media (width >= 768px) {
   .dayimg {
     width: 40%;
@@ -13287,6 +13283,19 @@ html, body {
 
 .iconSize {
   font-size: 2rem;
+}
+
+#currImg {
+  margin-top: -2rem;
+  font-size: 9rem;
+}
+
+#currentLocation {
+  text-align: left;
+}
+
+.hourlyForecast {
+  background-color: #343a40;
 }
 
 /*# sourceMappingURL=index.2e8c441c.css.map */

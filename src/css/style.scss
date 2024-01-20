@@ -63,9 +63,7 @@ html,body{
 #currMaxMinDate{
     text-align: left;
 }
-.dayimg{
-    width: 100%;
-}
+
 
 @media  (min-width: 768px){
     .dayimg{
@@ -107,4 +105,15 @@ html,body{
 }
 .iconSize{
     font-size: 2rem;
+}
+#currImg{
+    font-size: 9rem;
+    margin-top: -2rem;
+}
+#currentLocation{
+    text-align: left;
+}
+.hourlyForecast{
+    background-color: $gray-800;
+   
 }
