@@ -13,6 +13,8 @@ let currMin = document.getElementById("currMin");
 let currFeels = document.getElementById("currFeels");
 let currDate = document.getElementById("currDate");
 let currImg = document.getElementById("currImg");
+const userLanguage = navigator.language || navigator.userLanguage;
+const dateFormatter = new Intl.DateTimeFormat(userLanguage, { weekday: 'short' });
 
 
 function mapWeatherIcon(iconCode) {
@@ -62,13 +64,13 @@ async function drawWeatherChart(city) {
 
   //Today and now
   const date = fromUnixTime(weatherData.current.dt);
-  const dayOfWeek = format(date, 'EEE');
+  const dayOfWeek = dateFormatter.format(date);
   const hour = format(date, 'HH:mm')
   console.log(`Dzień tygodnia: ${dayOfWeek} ${hour}`);
   let degrees = (weatherData.current.temp).toFixed(0);
 
   currentTemp.innerHTML = degrees + '°';
-  currDate.innerHTML = dayOfWeek + '., ' + hour;
+  currDate.innerHTML = dayOfWeek + ', ' + hour;
   currMax.innerHTML = (weatherData.daily[0].temp.max).toFixed(0) + '°/';
   currMin.innerHTML = (weatherData.daily[0].temp.min).toFixed(0) + '°';
   currFeels.innerHTML = 'Feels like ' + (weatherData.daily[0].temp.min).toFixed(0) + '°';
@@ -165,10 +167,10 @@ async function drawWeatherChart(city) {
   //daily forecast
   const dailyDayOfWeek = [];
   const dailyIconCode = [];
-
+  
   for (let i = 0; i < 7; i++){
     const date = fromUnixTime(weatherData.daily[i].dt);
-    dailyDayOfWeek.push(format(date, 'EEE'));
+    dailyDayOfWeek.push(dateFormatter.format(date));
     dailyDayOfWeek[0]= 'Today';
     const dayIconCode = weatherData.daily[i].weather[0].icon;
     
