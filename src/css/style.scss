@@ -19,6 +19,25 @@ $container-max-widths: (
 
 @import "~bootstrap/scss/bootstrap";
 
+/* Styl dla suwaka pionowego */
+::-webkit-scrollbar {
+    width: 0px; /* Szerokość suwaka */
+  }
+  
+  
+  
+  
+  ::-webkit-scrollbar-thumb:horizontal {
+    background-color: $gray-600;
+    border-radius: 10px;
+    
+  }
+  
+  ::-webkit-scrollbar-track:horizontal {
+    background-color: #ffffff00;
+   
+  }
+
 html,body{
     height: 100%;
     width: 100%;

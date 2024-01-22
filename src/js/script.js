@@ -52,7 +52,7 @@ async function getCityCoordinates(cityName) {
 
 async function getWeatherData(city) {
     const coordinates = await getCityCoordinates(city);
-    const response = await fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`);
+    const response = await fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric&lang=pl`);
     const data = await response.json();
     console.log(data);
     return data;
@@ -73,7 +73,7 @@ async function drawWeatherChart(city) {
   currDate.innerHTML = dayOfWeek + ', ' + hour;
   currMax.innerHTML = (weatherData.daily[0].temp.max).toFixed(0) + '°/';
   currMin.innerHTML = (weatherData.daily[0].temp.min).toFixed(0) + '°';
-  currFeels.innerHTML = 'Feels like ' + (weatherData.daily[0].temp.min).toFixed(0) + '°';
+  currFeels.innerHTML = 'Odczuwalna ' + (weatherData.daily[0].temp.min).toFixed(0) + '°';
 
 
   //Current weather icon
@@ -122,11 +122,11 @@ async function drawWeatherChart(city) {
         label: "Temperature",
         data: temperaturesCelsius,
         borderWidth: 1,
+        lineTension: 0.3,
       }]
     },
     options: {
-      categoryPercentage: 6.0,
-      barPercentage: 5.98,
+      
       plugins: {
         legend: {
           display: false,
@@ -171,7 +171,7 @@ async function drawWeatherChart(city) {
   for (let i = 0; i < 7; i++){
     const date = fromUnixTime(weatherData.daily[i].dt);
     dailyDayOfWeek.push(dateFormatter.format(date));
-    dailyDayOfWeek[0]= 'Today';
+    dailyDayOfWeek[0]= 'Dzisiaj';
     const dayIconCode = weatherData.daily[i].weather[0].icon;
     
     const iconClass = mapWeatherIcon(dayIconCode);
