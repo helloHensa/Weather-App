@@ -66,17 +66,17 @@ async function drawWeatherChart(city) {
   const hour = format(date, 'HH:mm')
   console.log(`Dzień tygodnia: ${dayOfWeek} ${hour}`);
   let degrees = (weatherData.current.temp).toFixed(0);
+
   currentTemp.innerHTML = degrees + '°';
   currDate.innerHTML = dayOfWeek + '., ' + hour;
   currMax.innerHTML = (weatherData.daily[0].temp.max).toFixed(0) + '°/';
   currMin.innerHTML = (weatherData.daily[0].temp.min).toFixed(0) + '°';
-  currFeels.innerHTML = 'Fells like ' + (weatherData.daily[0].temp.min).toFixed(0) + '°';
+  currFeels.innerHTML = 'Feels like ' + (weatherData.daily[0].temp.min).toFixed(0) + '°';
 
 
   //Current weather icon
   const currIconCode = weatherData.current.weather[0].icon;
   const iconClass = mapWeatherIcon(currIconCode);
-  console.log(iconClass);
   currImg.innerHTML = '<i class="' + iconClass +  '"></i>';
 
   //Select all hourly entries
@@ -94,8 +94,8 @@ async function drawWeatherChart(city) {
       const hourLabel = format(date, 'HH:mm');
       let temperature = (entry.temp).toFixed(0);
       if(temperature == '-0'){
-        temperature = '0';
-      }
+        temperature = '0'
+      };
       hoursLabels.push(hourLabel);
       temperaturesCelsius.push(temperature);
       pop.push((entry.pop * 100).toFixed(0));
@@ -123,6 +123,8 @@ async function drawWeatherChart(city) {
       }]
     },
     options: {
+      categoryPercentage: 6.0,
+      barPercentage: 5.98,
       plugins: {
         legend: {
           display: false,
@@ -159,25 +161,47 @@ async function drawWeatherChart(city) {
     </div>`;
     hoursRainContainer.innerHTML += html; 
   }
-  
-  for (let i = 0; i < 6; i++){
-  let html = `<div type="button" class="btn btn-outline-primary text-white p-0 dayimgparent">
-    <div class="row border d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
-      <div class="col-3 d-flex justify-content-center">
-          <p class="my-1">Mon</p>              
+
+  //daily forecast
+  const dailyDayOfWeek = [];
+  const dailyIconCode = [];
+
+  for (let i = 0; i < 7; i++){
+    const date = fromUnixTime(weatherData.daily[i].dt);
+    dailyDayOfWeek.push(format(date, 'EEE'));
+    dailyDayOfWeek[0]= 'Today';
+    const dayIconCode = weatherData.daily[i].weather[0].icon;
+    
+    const iconClass = mapWeatherIcon(dayIconCode);
+    console.log(iconClass);
+    dailyIconCode.push(iconClass);
+
+    let maxTemp = (weatherData.daily[i].temp.max).toFixed(0)
+    let minTemp = (weatherData.daily[i].temp.min).toFixed(0)
+    if (maxTemp == '-0'){
+      maxTemp = '0'
+    };
+    if (minTemp == '-0'){
+      minTemp = '0'
+    };
+    let html = `
+    
+      <div class="row d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
+        <div class="col-3 d-flex justify-content-center">
+            <p class="my-1">${dailyDayOfWeek[i]}</p>              
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="row">
+            <div class="d-flex align-items-center justify-content-evenly">
+              <h1 class="pt-1 ${dailyIconCode[i]}"></h1>                                   
+              <p class="my-1 d-md-flex d-none">${weatherData.daily[i].weather[0].main}</p>
+            </div>
+          </div>           
+        </div>
+        <div class="col-3  d-flex justify-content-center"><span class="text-nowrap">${maxTemp}°/${minTemp}°</span></div>
       </div>
-      <div class="col-12 col-md-6">
-        <div class="row">
-          <div class="d-flex align-items-center justify-content-center suncontainer">
-            <img src="${img}" class="dayimg">                                   
-            <p class="mb-1 d-md-flex d-none">sunny</p>
-          </div>
-        </div>           
-      </div>
-      <div class="col-3  d-flex justify-content-center">32deg</div>
-    </div>
-  </div>`;
-  daysContainer.innerHTML += html;
+    `;
+    daysContainer.innerHTML += html;
   }
 }
 
