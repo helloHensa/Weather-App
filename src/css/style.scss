@@ -45,7 +45,6 @@ html,body{
     padding: 0;
 }
 
-.noWrap
 
 .weather,.back{
     display:block;
@@ -103,23 +102,18 @@ html,body{
     padding-bottom: 10px;
 }
 #mychart{
-    max-height: 110px;
+    max-height: 90px;
     padding-left: 32px;
     padding-right: 28px;
     
 
 }
-#towide{
-    margin:0;
-    padding: 0;
-    min-width: 60px;
-    
-}
+
 #rainSnow{
     
 }
 #towideContent{
-    
+    width:60px;
 }
 .iconSize{
     font-size: 2rem;
@@ -140,9 +134,9 @@ html,body{
 
 }
 .hourlyForecast{
-    background-color: $gray-800;
-   
+    background-color: $gray-800;   
 }
+
 #daily{
     background-color: $gray-800;
 }

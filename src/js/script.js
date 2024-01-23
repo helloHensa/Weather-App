@@ -2,6 +2,7 @@ import 'bootstrap';
 import img from '../Icons/clouds_sun_sunny_icon.svg';
 import Chart from 'chart.js/auto';
 import { format, fromUnixTime } from 'date-fns';
+import compromise from 'compromise';
 
 let hoursContainer = document.getElementById("hourly");
 let hoursRainContainer = document.getElementById("hourlyRain");
@@ -13,8 +14,10 @@ let currMin = document.getElementById("currMin");
 let currFeels = document.getElementById("currFeels");
 let currDate = document.getElementById("currDate");
 let currImg = document.getElementById("currImg");
+let locationName = document.getElementById("locationName");
 const userLanguage = navigator.language || navigator.userLanguage;
-const dateFormatter = new Intl.DateTimeFormat(userLanguage, { weekday: 'short' });
+const dateFormatter = new Intl.DateTimeFormat(userLanguage, { weekday: 'long' });
+const dateFormatterShort = new Intl.DateTimeFormat(userLanguage, { weekday: 'short' });
 
 
 function mapWeatherIcon(iconCode) {
@@ -42,16 +45,26 @@ function mapWeatherIcon(iconCode) {
 
   return iconClass || 'bi-question';
 }
-const apiKey = '5a43b5303a0107f4cf1ced3ef800b104';
 
-async function getCityCoordinates(cityName) {
-  const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`);
+
+
+
+const apiKey = '5a43b5303a0107f4cf1ced3ef800b104';
+const gApi = 'AIzaSyDQpOAjC1-a_uBJtkhoFXHPWum7D1UHUYs';
+
+async function getCityCoordinates2(cityName) {
+  const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=${gApi}`);
   const city = await response.json();
-  return { lat: city[0].lat, lon: city[0].lon };
+  console.log(city);
+  const lat = city.results[0].geometry.location.lat;
+  const lon = city.results[0].geometry.location.lng;
+  const address = city.results[0].formatted_address;
+  return {lat, lon, address};
 }
 
+
 async function getWeatherData(city) {
-    const coordinates = await getCityCoordinates(city);
+    const coordinates = await getCityCoordinates2(city);
     const response = await fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric&lang=pl`);
     const data = await response.json();
     console.log(data);
@@ -61,7 +74,7 @@ async function getWeatherData(city) {
 async function drawWeatherChart(city) {
   //taking weather data
   const weatherData = await getWeatherData(city);
-
+  const address = await getCityCoordinates2(city);
   //Today and now
   const date = fromUnixTime(weatherData.current.dt);
   const dayOfWeek = dateFormatter.format(date);
@@ -69,6 +82,7 @@ async function drawWeatherChart(city) {
   console.log(`Dzień tygodnia: ${dayOfWeek} ${hour}`);
   let degrees = (weatherData.current.temp).toFixed(0);
 
+  locationName.innerHTML = address.address + ' ';
   currentTemp.innerHTML = degrees + '°';
   currDate.innerHTML = dayOfWeek + ', ' + hour;
   currMax.innerHTML = (weatherData.daily[0].temp.max).toFixed(0) + '°/';
@@ -159,19 +173,22 @@ async function drawWeatherChart(city) {
   for (let i = 0; i < temperaturesCelsius.length; i++){
     let html = `<div class="col" id="towide ">
     <div class="row" id="towideContent">
-    <div class="col col-12"><i class="bi bi-droplet text-info"></i>${pop[i]}%</div>
+    <div class="col col-12 d-flex flex-column"><i class="bi bi-droplet text-info"></i>${pop[i]}%</div>
     </div>`;
     hoursRainContainer.innerHTML += html; 
   }
 
   //daily forecast
   const dailyDayOfWeek = [];
+  const dailyDayOfWeekShort = [];
   const dailyIconCode = [];
   
   for (let i = 0; i < 7; i++){
     const date = fromUnixTime(weatherData.daily[i].dt);
     dailyDayOfWeek.push(dateFormatter.format(date));
     dailyDayOfWeek[0]= 'Dzisiaj';
+    dailyDayOfWeekShort.push(dateFormatterShort.format(date));
+    dailyDayOfWeekShort[0]= 'Dziś';
     const dayIconCode = weatherData.daily[i].weather[0].icon;
     
     const iconClass = mapWeatherIcon(dayIconCode);
@@ -189,8 +206,11 @@ async function drawWeatherChart(city) {
     let html = `
     
       <div class="row d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
-        <div class="col-3 d-flex justify-content-center">
-            <p class="my-1">${dailyDayOfWeek[i]}</p>              
+        <div class="col-3 d-none d-md-flex align-items-start">
+            <p class="my-1 ps-2">${dailyDayOfWeek[i]}</p>              
+        </div>
+        <div class="col-3 d-flex d-md-none align-items-start justify-content-center">
+            <p class="my-1 ps-0">${dailyDayOfWeekShort[i]}</p>              
         </div>
         <div class="col-12 col-md-6">
           <div class="row">
