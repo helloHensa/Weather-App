@@ -69,16 +69,13 @@ async function getCityCoordinates(cityName) {
 async function getWeatherData(city) {
     const coordinates = await getCityCoordinates(city);
     const response = await fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric&lang=pl`);
-    const responseAir = await fetch (`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`);
     const data = await response.json();
-    const dataAir = await responseAir.json();
     console.log(data);
     return data;
   }
 async function getAirQuality(city) {
   const coordinates = await getCityCoordinates(city);
-  const responseAir = await fetch (`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`);
-  
+  const responseAir = await fetch (`https://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`);
   const dataAir = await responseAir.json();
   console.log(dataAir);
   return dataAir;
