@@ -1,8 +1,12 @@
 import 'bootstrap';
 import img from '../Icons/clouds_sun_sunny_icon.svg';
 import Chart from 'chart.js/auto';
-import { format, fromUnixTime } from 'date-fns';
+import { format, fromUnixTime, setDate } from 'date-fns';
 import compromise from 'compromise';
+import apiKeys from './apiKey';
+
+const apiKey = apiKeys.openWeather;
+const gApi = apiKeys.google;
 
 let hoursContainer = document.getElementById("hourly");
 let hoursRainContainer = document.getElementById("hourlyRain");
@@ -49,10 +53,9 @@ function mapWeatherIcon(iconCode) {
 
 
 
-const apiKey = '5a43b5303a0107f4cf1ced3ef800b104';
-const gApi = 'AIzaSyDQpOAjC1-a_uBJtkhoFXHPWum7D1UHUYs';
 
-async function getCityCoordinates2(cityName) {
+
+async function getCityCoordinates(cityName) {
   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=${gApi}`);
   const city = await response.json();
   console.log(city);
@@ -64,17 +67,27 @@ async function getCityCoordinates2(cityName) {
 
 
 async function getWeatherData(city) {
-    const coordinates = await getCityCoordinates2(city);
+    const coordinates = await getCityCoordinates(city);
     const response = await fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric&lang=pl`);
+    const responseAir = await fetch (`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`);
     const data = await response.json();
+    const dataAir = await responseAir.json();
     console.log(data);
     return data;
   }
+async function getAirQuality(city) {
+  const coordinates = await getCityCoordinates(city);
+  const responseAir = await fetch (`http://api.openweathermap.org/data/2.5/air_pollution?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`);
   
+  const dataAir = await responseAir.json();
+  console.log(dataAir);
+  return dataAir;
+}  
 async function drawWeatherChart(city) {
   //taking weather data
   const weatherData = await getWeatherData(city);
-  const address = await getCityCoordinates2(city);
+  const address = await getCityCoordinates(city);
+  const airQuality = await getAirQuality(city);
   //Today and now
   const date = fromUnixTime(weatherData.current.dt);
   const dayOfWeek = dateFormatter.format(date);
@@ -114,9 +127,17 @@ async function drawWeatherChart(city) {
       };
       hoursLabels.push(hourLabel);
       temperaturesCelsius.push(temperature);
-      pop.push((entry.pop * 100).toFixed(0));
+      
+      if(entry.rain){
+        pop.push((entry.rain['1h']).toFixed(1));
+        pop[0] = (parseFloat(entry.rain['1h']).toFixed(1) + "mm");
+      }else{
+        pop.push('-')
+      };
+      
       weatherIconCode.push(entry.weather[0].icon);
   }
+  
   //hourly forecast's hours and images
   for (let i = 0; i < temperaturesCelsius.length; i++){
     const iconClass = mapWeatherIcon(weatherIconCode[i]);
@@ -173,7 +194,7 @@ async function drawWeatherChart(city) {
   for (let i = 0; i < temperaturesCelsius.length; i++){
     let html = `<div class="col" id="towide ">
     <div class="row" id="towideContent">
-    <div class="col col-12 d-flex flex-column"><i class="bi bi-droplet text-info"></i>${pop[i]}%</div>
+    <div class="col col-12 d-flex flex-column"><i class="bi bi-droplet text-info"></i>${pop[i]}</div>
     </div>`;
     hoursRainContainer.innerHTML += html; 
   }
@@ -203,24 +224,38 @@ async function drawWeatherChart(city) {
     if (minTemp == '-0'){
       minTemp = '0'
     };
+    if(weatherData.daily[i].rain){
+      
+    }else{
+      weatherData.daily[i].rain = '-'
+    }
+    const mm = ["mm"];
+    if(mm[i]){
+
+    }else{
+      mm[i]=""
+    };
     let html = `
     
       <div class="row d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
-        <div class="col-3 d-none d-md-flex align-items-start">
-            <p class="my-1 ps-2">${dailyDayOfWeek[i]}</p>              
+        <div class="col-4 d-none d-md-flex align-items-start">
+            <p class="my-1 ps-1 text-truncate">${dailyDayOfWeek[i]}</p>              
         </div>
         <div class="col-3 d-flex d-md-none align-items-start justify-content-center">
             <p class="my-1 ps-0">${dailyDayOfWeekShort[i]}</p>              
         </div>
-        <div class="col-12 col-md-6">
-          <div class="row">
-            <div class="d-flex align-items-center justify-content-evenly">
-              <h1 class="pt-1 ${dailyIconCode[i]}"></h1>                                   
-              <p class="my-1 d-md-flex d-none">${weatherData.daily[i].weather[0].main}</p>
-            </div>
-          </div>           
+        
+        <div class="col-3 d-none  d-md-flex justify-content-center">
+          <p class="my-1 d-flex"><i class="bi bi-droplet text-info"></i>${weatherData.daily[i].rain}${mm[i]}</p>
         </div>
-        <div class="col-3  d-flex justify-content-center"><span class="text-nowrap">${maxTemp}°/${minTemp}°</span></div>
+        <div class="col-3  d-flex justify-content-center">
+          <h1 class="pt-1 ${dailyIconCode[i]}"></h1>
+        </div>
+        
+        <div class="col-2  d-flex justify-content-center"><span class="text-nowrap pe-1">${maxTemp}°/${minTemp}°</span></div>
+        <div class="col-3 d-flex d-md-none justify-content-center">
+          <p class="my-1"><i class="bi bi-droplet text-info"></i>${weatherData.daily[i].rain}</p>
+        </div>
       </div>
     `;
     daysContainer.innerHTML += html;
