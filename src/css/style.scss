@@ -155,7 +155,7 @@ html,body{
     
     width: 100%;
     height: 60%;
-   overflow: hidden;
+    overflow: hidden;
     
     
 }
@@ -163,42 +163,50 @@ html,body{
     position: relative;
     max-width: 300px;
     width: 90%;
-    height: 200%;
+    height: 350%;
     border-radius: 50% / 50%;
-    overflow: hidden; /* Ukrycie zawartości, która wychodzi poza obszar ovalu */
-    background-color: rgba(255, 255, 255, 0); /* Ustawienie koloru tła ovalu na transparentny */
+    overflow: hidden;
+    background-color: transparent;
      /* Obramowanie przezroczyste */
-    transform: translateY(10%);
+    transform: translateY(3%);
     
 }
 .oval::after {
     content: "";
     position: absolute;
     max-width: 300px;
-    width: 100%;
+    left: 0.5%;
+    width: 99%;
     height: 100%;
     border-radius: 50% / 50%;
-    overflow: hidden; /* Ukrycie zawartości, która wychodzi poza obszar ovalu */
-    background-color: #212529c2; /* Ustawienie koloru tła ovalu na transparentny */
+    overflow: hidden;
+    background-color: #212529c2;
     
-    transform: translateY(2%);
+    transform: translateY(1.5%);
     
 }
 
 .oval::before {
-    content: ""; /* Dodanie pseudo-elementu */
+    content: ""; 
     position: absolute;
     top: -50%;
-    left: -25%;
-    width: 150%;
-    height: 300%;
-    background: linear-gradient(orange, purple); /* Gradient tła */
+    left: 0%;
+    width: 100%;
+    height: 150%;
+    background: linear-gradient(to right, orange, rgb(32, 0, 215)); /* Gradient tła */
     transform-origin: center center; /* Obrót wokół dolnej krawędzi */
-    animation: rotateGradient 5s linear infinite; /* Animacja obrotu gradientu */
+    animation: rotateGradient 5s ease-in-out infinite; /* Animacja obrotu gradientu */
+
 }
 
 @keyframes rotateGradient {
-    to {
-        transform: rotate(360deg); /* Obrót o 360 stopni */
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(359deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
