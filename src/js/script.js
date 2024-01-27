@@ -258,5 +258,13 @@ async function drawWeatherChart(city) {
     daysContainer.innerHTML += html;
   }
 }
+const apiValue = 0; 
+
+const progressDot = document.getElementById('myProgressDot');
+
+const dotPosition = apiValue;
+progressDot.style.left = dotPosition + '%';
+
+
 
 drawWeatherChart('orzesze');
