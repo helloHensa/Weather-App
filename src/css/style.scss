@@ -39,8 +39,8 @@ $container-max-widths: (
   }
 
 html,body{
-    height: 100%;
-    width: 100%;
+    
+   
     margin: 0;
     padding: 0;
 }
@@ -142,13 +142,13 @@ html,body{
 .daycontainer{
     min-width: 60px;
 }
-.blockParent{
-    height: 127px;
-   
-}
 .block{
- height: 100%;
+    height: 127px;
 }
+.block-el{
+    height:100px;
+}
+
 .sunriseBlock{
     margin:auto;
     max-width: 350px;
@@ -217,40 +217,25 @@ html,body{
     }
 }
 .progress-container{
-    padding: 0 1%;
-    height: 30px;
+    
 }
 .progress-bar {
+    padding: 0 1%;
     position: relative;
     height: 20px;
     
 }
 .progress-line{
     height: 5px;
-    background: linear-gradient(to right, rgb(0, 203, 0),rgb(193, 180, 0), rgb(218, 0, 0));
+    background: linear-gradient(to right, rgb(0, 203, 0),rgb(215, 215, 0),rgb(215, 140, 0), rgb(218, 0, 0));
     border-radius: 10px;
 } 
-.progress-dot {
-    position: absolute;
-    
-    
-    
 
-   
-}
-    
-.absolute{
+.progress-dot{
+    margin: 0 5%;
     position: absolute;
-   top: -30px;
-   font-size: 36px;
-}
-.absolute::after{
-    content: "";
-    top: 27.5px;
-    position: absolute;
-    left: 5px;
+    height: 12px;
+    width: 12px;
+    background-color:white;
     border-radius: 50%;
-    height: 5px;
-    width: 5px;
-    background-color: gray;
 }

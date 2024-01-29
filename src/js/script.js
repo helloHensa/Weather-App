@@ -19,6 +19,17 @@ let currFeels = document.getElementById("currFeels");
 let currDate = document.getElementById("currDate");
 let currImg = document.getElementById("currImg");
 let locationName = document.getElementById("locationName");
+let sunrise = document.getElementById("sunrise");
+let sundown = document.getElementById("sundown");
+let humidity = document.getElementById("humidity");
+let pressure = document.getElementById("pressure");
+let wind = document.getElementById("wind");
+let airQualityIndex = document.getElementById("airQualityIndex");
+let airQualityDesc = document.getElementById("airQualityDesc")
+let uvIndex = document.getElementById("uvIndex");
+let uvIndexDesc = document.getElementById("uvIndexDesc");
+
+
 const userLanguage = navigator.language || navigator.userLanguage;
 const dateFormatter = new Intl.DateTimeFormat(userLanguage, { weekday: 'long' });
 const dateFormatterShort = new Intl.DateTimeFormat(userLanguage, { weekday: 'short' });
@@ -257,14 +268,61 @@ async function drawWeatherChart(city) {
     `;
     daysContainer.innerHTML += html;
   }
+  const sunriseData = fromUnixTime(weatherData.current.sunrise);  
+  const sunriseHour = format(sunriseData, 'HH:mm');
+  sunrise.innerHTML = sunriseHour;
+
+  const sunsetData = fromUnixTime(weatherData.current.sunset);  
+  const sunsetHour = format(sunsetData, 'HH:mm');
+  sunset.innerHTML = sunsetHour;
+
+  humidity.innerHTML = weatherData.current.humidity + '%';
+  pressure.innerHTML = weatherData.current.pressure + ' hPa'
+  wind.innerHTML = (weatherData.current.wind_speed).toFixed(0) + ' km/h'
+
+  
+  const apiValueAir = airQuality.list[0].main.aqi; 
+  
+ 
+  const apiValueUv = (weatherData.current.uvi + 1).toFixed(0); 
+  
+  
+  const progressDotAir = document.getElementById('myProgressDotAir');
+  const progressDotUv = document.getElementById('myProgressDotUv');
+  
+  const dotPositionAir = (apiValueAir - 1) * 20;
+  progressDotAir.style.left = dotPositionAir + '%';
+  const airQualityDescription = ['Dobra', 'Przeciętna', 'Umiarkowana', 'Zła', 'Bardzo zła'];
+  const colorClass = ['rgb(0, 255, 0)', 'rgb(150, 255, 0)', 'yellow', 'orange', 'red', 'rgb(200,0,255)']
+  airQualityIndex.innerHTML = apiValueAir;
+  airQualityDesc.innerHTML = airQualityDescription[apiValueAir - 1];
+  airQualityDesc.style.color = colorClass[apiValueAir - 1];
+  
+  let uvIndexDescription;
+  let uvColor;
+
+  if (apiValueUv <= 2){
+    uvIndexDescription = "Niski";
+    uvColor = colorClass[0];
+  }else if (apiValueUv <=5){
+    uvIndexDescription = "Średni"
+    uvColor = colorClass[2];
+  }else if (apiValueUv <=7){
+    uvIndexDescription = "Wysoki"
+    uvColor = colorClass[3];
+  }else if (apiValueUv <=10){
+    uvIndexDescription = "Bardzo Wysoki"
+    uvColor = colorClass[4];
+  }else {
+    uvIndexDescription = "Ekstremalny"
+    uvColor = colorClass[5];
+  };
+
+  const dotPositionUv = ((apiValueUv - 1) / 11) * 100;
+  progressDotUv.style.left = dotPositionUv + '%';
+  uvIndex.innerHTML = apiValueUv;
+  uvIndexDesc.innerHTML = uvIndexDescription;
+  uvIndexDesc.style.color = uvColor;
 }
-const apiValue = 0; 
 
-const progressDot = document.getElementById('myProgressDot');
-
-const dotPosition = apiValue;
-progressDot.style.left = dotPosition + '%';
-
-
-
-drawWeatherChart('orzesze');
+drawWeatherChart('polska');
