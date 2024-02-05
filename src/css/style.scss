@@ -45,20 +45,23 @@ html,body{
     padding: 0;
 }
 
-
-.weather,.back{
-    display:block;
+.hide{
+    display: none;
 }
+.show{
+    display: block;
+}
+
 .weather{
     max-width: 100vw;
+    
 }
-.welcome{
-    display:none;
-} 
-#padding{
+#welcome{
+    
     width:100vw;
     max-width: 400px;
-}
+} 
+
 .separator{
     height: 1px;
     width: 100%;
@@ -144,6 +147,7 @@ html,body{
 }
 .block{
     height: 127px;
+    
 }
 .block-el{
     height:100px;
@@ -159,7 +163,6 @@ html,body{
     height:40%;
 }
 .ovalParent{
-    
     width: 100%;
     height: 60%;
     overflow: hidden;
@@ -169,6 +172,7 @@ html,body{
 .oval {
     position: relative;
     max-width: 300px;
+    min-width: 200px;
     width: 90%;
     height: 350%;
     border-radius: 50% / 50%;

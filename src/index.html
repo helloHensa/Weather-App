@@ -16,20 +16,20 @@
                 <span>
                     Weather App
                 </span>
-                <button class="btn" type="button">
-                    <span class="text-white back"><i class="bi bi-arrow-left text-light"></i> Change Location</span>
+                <button class="btn hide" id="change" type="button">
+                    <span class="text-white" id=""><i class="bi bi-arrow-left text-light"></i> Change Location</span>
                 </button>
             </div>
         </nav>
         
         
         <!-- getting location -->
-        <section class="bg-dark rounded-bottom-2 welcome" id="padding">
+        <section class="bg-dark rounded-bottom-2" id="welcome">
         
         <div class="container text-center px-4">
             <div class="py-4 text-start">
-                <span class="text-light">Please enter a valid city name</span>
-                <input type="text" placeholder="Enter city name" class="form-control w-100 text-center p-2 rounded-2">
+                <span class="text-light">Please enter a location</span>
+                <input type="text" placeholder="Enter location" class="form-control w-100 text-center p-2 rounded-2">
             </div>
             
             <div class="separator"></div>
@@ -41,7 +41,7 @@
         </div>
         </section> 
 
-        <div class="container bg-dark p-0 weather rounded-bottom-3">
+        <div class="container bg-dark p-0 rounded-bottom-3 weather hide" id="weather">
                 <div class="container text-center p-4 py-3">
                     <div class="row text-light d-flex">
                         <div class="col-md-7 col-lg-8 justify-content-evenly d-flex flex-column p-0 pe-md-2">
@@ -89,7 +89,7 @@
                 <div class="container text-light">
                     <div class="row">
                         <div class="col col-12 col-md-6 col-lg-3 border block">
-                            <div class="blockTitle text-secondary border-bottom border-secondary"><i class="bi bi-brightness-alt-high"></i><span>Wschód i zachód słońca</span></div>
+                            <div class="blockTitle text-secondary border-bottom border-secondary text-nowrap"><i class="bi bi-brightness-alt-high"></i><span>Wschód i zachód słońca</span></div>
                             <div class="sunriseBlock">
                                 <div class=" d-flex justify-content-between align-items-center sunriseParent">
                                     <span><span id="sunrise">7:00</span> <i class="bi bi-sun"></i></span>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                         <div class="col col-12 col-md-6 col-lg-3 border block">
-                            <div class="blockTitle text-secondary border-bottom border-secondary"><i class="bi bi-brightness-alt-high"></i><span>Wschód i zachód słońca</span></div>
+                            <div class="blockTitle text-secondary border-bottom border-secondary "><i class="bi bi-brightness-alt-high"></i><span>Informacje</span></div>
                             <div class="row d-flex justify-content-around block-el">
                                 
                                 <div class="col col-3 d-flex flex-column justify-content-center block-el align-items-center">

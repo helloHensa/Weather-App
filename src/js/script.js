@@ -8,6 +8,9 @@ import apiKeys from './apiKey';
 const apiKey = apiKeys.openWeather;
 const gApi = apiKeys.google;
 
+let change = document.getElementById("change");
+let getlocation = document.getElementById("welcome")
+let weatherShow = document.getElementById("weather")
 let hoursContainer = document.getElementById("hourly");
 let hoursRainContainer = document.getElementById("hourlyRain");
 let daysContainer = document.getElementById("daily");
@@ -20,7 +23,7 @@ let currDate = document.getElementById("currDate");
 let currImg = document.getElementById("currImg");
 let locationName = document.getElementById("locationName");
 let sunrise = document.getElementById("sunrise");
-let sundown = document.getElementById("sundown");
+let sunset = document.getElementById("sunset");
 let humidity = document.getElementById("humidity");
 let pressure = document.getElementById("pressure");
 let wind = document.getElementById("wind");
@@ -28,6 +31,7 @@ let airQualityIndex = document.getElementById("airQualityIndex");
 let airQualityDesc = document.getElementById("airQualityDesc")
 let uvIndex = document.getElementById("uvIndex");
 let uvIndexDesc = document.getElementById("uvIndexDesc");
+
 
 
 const userLanguage = navigator.language || navigator.userLanguage;
@@ -60,25 +64,49 @@ function mapWeatherIcon(iconCode) {
 
   return iconClass || 'bi-question';
 }
+function start() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
 
+        console.log(`Twoja lokalizacja: ${latitude}, ${longitude}`);
+      },
+      function (error) {
+        console.error(`Błąd pobierania lokalizacji: ${error.message}`);
+      }
+    );
+  } else {
+    console.error("Twoja przeglądarka nie obsługuje geolokalizacji.");
+  }
 
+  
+}
 
-
-
+let text = false;
 
 async function getCityCoordinates(cityName) {
   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=${gApi}`);
   const city = await response.json();
-  console.log(city);
-  const lat = city.results[0].geometry.location.lat;
-  const lon = city.results[0].geometry.location.lng;
-  const address = city.results[0].formatted_address;
-  return {lat, lon, address};
+  let address;
+  address = city.results[0].formatted_address;
+  if(text){
+    address = city.results[5].formatted_address;
+  }
+    console.log(city);
+    const lat = city.results[0].geometry.location.lat;
+    const lon = city.results[0].geometry.location.lng;
+   
+    return {lat, lon, address};
+  
+  
 }
 
 
 async function getWeatherData(city) {
     const coordinates = await getCityCoordinates(city);
+    console.log(coordinates);
     const response = await fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric&lang=pl`);
     const data = await response.json();
     console.log(data);
@@ -91,8 +119,11 @@ async function getAirQuality(city) {
   console.log(dataAir);
   return dataAir;
 }  
-async function drawWeatherChart(city) {
-  //taking weather data
+async function drawWeather(city) {
+  getlocation.style.display = 'none';
+  weatherShow.classList.remove('hide');
+  change.classList.remove('hide');
+//taking weather data
   const weatherData = await getWeatherData(city);
   const address = await getCityCoordinates(city);
   const airQuality = await getAirQuality(city);
@@ -325,4 +356,12 @@ async function drawWeatherChart(city) {
   uvIndexDesc.style.color = uvColor;
 }
 
-drawWeatherChart('polska');
+//drawWeather('polska');
+function zlokalizacji(){
+  text = true;
+  drawWeather('50.1437776, 18.7756856');
+}
+function znazwy(){
+  drawWeather('orzesze');
+}
+znazwy();
