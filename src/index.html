@@ -9,7 +9,7 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
 </head>
 <body>
-<section class="h-100  d-flex align-items-center justify-content-center all bg-info">
+<section class="h-100  d-flex align-items-center justify-content-center all">
     <section class="">
         <nav class="navbar p-0">
             <div class="container text-light bg-secondary p-3 rounded-top-3">
@@ -24,12 +24,18 @@
         
         
         <!-- getting location -->
-        <section class="bg-dark rounded-bottom-2" id="welcome">
+        <section class="bg-dark rounded-bottom-2 h-100" id="welcome">
         
         <div class="container text-center px-4">
             <div class="py-4 text-start">
                 <span class="text-light">Please enter a location</span>
-                <input type="text" placeholder="Enter location" class="form-control w-100 text-center p-2 rounded-2">
+                
+                  
+                <div class="input-group  py-2">
+                    <input type="text" class="form-control" id="search-input" placeholder="Enter location">
+                    <button class="btn btn-primary h-100 px-3 m-0" type="submit"><i class="bi bi-search"></i></button>
+                  </div>
+                  
             </div>
             
             <div class="separator"></div>
@@ -82,7 +88,14 @@
                         <!-- Moving days -->
                         
                         <div class="col-md-5 col-lg-4 d-flex flex-row flex-md-column overflow-scroll border border-2 border-secondary rounded rounded-4 justify-content-md-evenly p-1 pb-2 p-md-0" id="daily">
-   
+                            
+                            <div class="row d-none d-md-flex align-items-center flex-column flex-md-row mx-0 px-0">
+                                <div class="col-4"></div>
+                                <div class="col-3 d-flex justify-content-center">
+                                  <span class="mm text-secondary">mm</span>
+                                </div>
+                                <div class="col-5"></div> 
+                            </div>
                         </div>
                     </div>
                 </div>

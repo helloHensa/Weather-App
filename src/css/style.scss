@@ -23,10 +23,6 @@ $container-max-widths: (
 ::-webkit-scrollbar {
     width: 0px; /* Szerokość suwaka */
   }
-  
-  
-  
-  
   ::-webkit-scrollbar-thumb:horizontal {
     background-color: $gray-600;
     border-radius: 10px;
@@ -39,8 +35,8 @@ $container-max-widths: (
   }
 
 html,body{
+    background-color: $info;
     
-   
     margin: 0;
     padding: 0;
 }
@@ -88,10 +84,7 @@ html,body{
 
 
 @media  (min-width: 768px){
-    .dayimg{
-        width: 40%;
-    }
-    body,html,.all{
+    body,html{
         height: 100%;
     }
 }
@@ -112,9 +105,7 @@ html,body{
 
 }
 
-#rainSnow{
-    
-}
+
 #towideContent{
     width:60px;
 }
@@ -179,7 +170,6 @@ html,body{
     overflow: hidden;
     background-color: transparent;
     transform: translateY(3%);
-    
 }
 .oval::after {
     content: "";
@@ -197,6 +187,7 @@ html,body{
 }
 
 .oval::before {
+    
     content: ""; 
     position: absolute;
     top: -50%;
@@ -220,9 +211,7 @@ html,body{
         transform: rotate(360deg);
     }
 }
-.progress-container{
-    
-}
+
 .progress-bar {
     padding: 0 1%;
     position: relative;
@@ -242,4 +231,9 @@ html,body{
     width: 12px;
     background-color:white;
     border-radius: 50%;
+}
+.mm{
+    height:1px;
+    
+    
 }

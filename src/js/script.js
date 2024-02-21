@@ -196,7 +196,9 @@ async function drawWeather(city) {
         label: "Temperature",
         data: temperaturesCelsius,
         borderWidth: 1,
-        lineTension: 0.3,
+        borderColor: 'white',
+        pointBackgroundColor: 'white',
+        lineTension: 0.4,
       }]
     },
     options: {
@@ -267,13 +269,9 @@ async function drawWeather(city) {
       
     }else{
       weatherData.daily[i].rain = '-'
-    }
-    const mm = ["mm"];
-    if(mm[i]){
-
-    }else{
-      mm[i]=""
     };
+    
+    
     let html = `
     
       <div class="row d-flex align-items-center d-flex flex-column flex-md-row mx-0 daycontainer">
@@ -285,7 +283,7 @@ async function drawWeather(city) {
         </div>
         
         <div class="col-3 d-none  d-md-flex justify-content-center">
-          <p class="my-1 d-flex"><i class="bi bi-droplet text-info"></i>${weatherData.daily[i].rain}${mm[i]}</p>
+          <p class="my-1 d-flex"><i class="bi bi-droplet text-info"></i>${weatherData.daily[i].rain}</p>
         </div>
         <div class="col-3  d-flex justify-content-center">
           <h1 class="pt-1 ${dailyIconCode[i]}"></h1>
@@ -354,7 +352,21 @@ async function drawWeather(city) {
   uvIndex.innerHTML = apiValueUv;
   uvIndexDesc.innerHTML = uvIndexDescription;
   uvIndexDesc.style.color = uvColor;
-}
+};
+
+const inputField = document.getElementById('search-input');
+
+inputField.addEventListener('input', function() {
+    const inputValue = inputField.value;
+    fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputValue}&types=(cities)&key=${gApi}`)
+        .then(response => response.json())
+        .then(data => {
+            // Obsługa odpowiedzi z API - wyświetlenie sugerowanych miejsc w polu wyszukiwania
+        })
+        .catch(error => {
+            console.error('Błąd podczas pobierania sugestii miejsc:', error);
+        });
+});
 
 //drawWeather('polska');
 function zlokalizacji(){
@@ -364,4 +376,3 @@ function zlokalizacji(){
 function znazwy(){
   drawWeather('orzesze');
 }
-znazwy();
