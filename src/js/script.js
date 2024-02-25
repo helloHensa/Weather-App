@@ -354,6 +354,20 @@ async function drawWeather(city) {
   uvIndexDesc.style.color = uvColor;
 };
 
+//search window behavior
+function searchWindow(x){
+  if (x.matches) {
+    document.body.style.height = '100%';
+    document.documentElement.style.height = '100%';
+  }else{
+    document.body.style.height = 'auto';
+    document.documentElement.style.height = 'auto';
+  }
+}
+let x = window.matchMedia("(min-width: 768px)")
+
+
+
 // search autocomplete
 const inputField = document.getElementById('search-input');
 const suggestionsContainer = document.getElementById('suggestions');
@@ -422,5 +436,9 @@ function zlokalizacji(){
   drawWeather('50.1437776, 18.7756856');
 }
 function znazwy(value){
+  searchWindow(x);
   drawWeather(value);
+  x.addEventListener("change", function() {
+    searchWindow(x);
+  }); 
 }
