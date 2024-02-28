@@ -245,7 +245,7 @@ async function drawWeather(city) {
   const dailyDayOfWeekShort = [];
   const dailyIconCode = [];
   
-  for (let i = 0; i < 7; i++){
+  for (let i = 0; i < 8; i++){
     const date = fromUnixTime(weatherData.daily[i].dt);
     dailyDayOfWeek.push(dateFormatter.format(date));
     dailyDayOfWeek[0]= 'Dzisiaj';
@@ -372,6 +372,45 @@ let x = window.matchMedia("(min-width: 768px)")
 const inputField = document.getElementById('search-input');
 const suggestionsContainer = document.getElementById('suggestions');
 
+
+function fetchSuggestions() {
+  const inputValue = inputField.value;
+
+  fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${inputValue}&key=${gApi}`)
+      .then(response => response.json())
+      .then(data => {
+          suggestionsContainer.innerHTML = '';
+          const suggestions = data.results;
+          if (suggestions.length > 0) {
+              suggestions.forEach((suggestion, index) => {
+                  console.log(suggestion.formatted_address)
+                  const suggestionItem = document.createElement('li');
+                  suggestionItem.classList.add('dropdown-item');
+                  suggestionItem.textContent = suggestion.formatted_address;
+                  suggestionItem.addEventListener('click', function() {
+                      inputField.value = suggestion.formatted_address;
+                      suggestionsContainer.style.display = 'none';
+                      znazwy(inputField.value);
+                  });
+                  suggestionsContainer.appendChild(suggestionItem);
+
+                  if (index === 0) {
+                      suggestionItem.classList.add('selected');
+                  }
+              });
+              suggestionsContainer.style.display = 'block';
+          } else {
+              suggestionsContainer.style.display = 'none';
+          }
+      })
+      .catch(error => {
+          console.error('Błąd podczas pobierania sugestii miejsc:', error);
+      });
+}
+
+inputField.addEventListener('input', fetchSuggestions);
+inputField.addEventListener('click', fetchSuggestions);
+
 inputField.addEventListener('keydown', function(event) {
   const suggestions = suggestionsContainer.querySelectorAll('.dropdown-item');
   const selectedIndex = Array.from(suggestions).findIndex(item => item.classList.contains('selected'));
@@ -395,40 +434,32 @@ inputField.addEventListener('keydown', function(event) {
       }
   }
 });
+function hideSuggestions() {
+  suggestionsContainer.style.display = 'none';
+}
 
-inputField.addEventListener('input', function() {
-  const inputValue = inputField.value;
 
-  fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${inputValue}&key=${gApi}`)
-    .then(response => response.json())
-    .then(data => {
-        suggestionsContainer.innerHTML = '';
-        const suggestions = data.results;
-        if (suggestions.length > 0) { // Sprawdzenie, czy są jakiekolwiek sugestie
-            suggestions.forEach((suggestion, index) => {
-                console.log(suggestion.formatted_address)
-                const suggestionItem = document.createElement('li');
-                suggestionItem.classList.add('dropdown-item');
-                suggestionItem.textContent = suggestion.formatted_address;
-                suggestionItem.addEventListener('click', function() {
-                    inputField.value = suggestion.formatted_address;
-                    suggestionsContainer.style.display = 'none';
-                });
-                suggestionsContainer.appendChild(suggestionItem);
-
-                if (index === 0) {
-                    suggestionItem.classList.add('selected');
-                }
-            });
-            suggestionsContainer.style.display = 'block'; // Ustawienie display block, gdy są sugestie
-        } else {
-            suggestionsContainer.style.display = 'none'; // Ukrycie kontenera, gdy nie ma sugestii
-        }
-    })
-    .catch(error => {
-        console.error('Błąd podczas pobierania sugestii miejsc:', error);
-    });
+document.addEventListener('click', function(event) {
+  if (!suggestionsContainer.contains(event.target) && event.target !== inputField) {
+      hideSuggestions();
+  }
 });
+
+inputField.addEventListener('click', function(event) {
+  suggestionsContainer.style.display = 'block';
+  event.stopPropagation();
+});
+
+const searchButton = document.getElementById('search-button');
+
+
+searchButton.addEventListener('click', function() {
+  znazwy(inputField.value);
+});
+
+change.addEventListener('click', function() {
+  location.reload();
+})
 
 //drawWeather('polska');
 function zlokalizacji(){

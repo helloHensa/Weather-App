@@ -57,7 +57,9 @@ html,body{
     width:100vw;
     max-width: 400px;
 } 
-
+.inputo{
+    position: absolute;
+}
 .separator{
     height: 1px;
     width: 100%;
@@ -132,9 +134,10 @@ html,body{
 
 #daily{
     background-color: $gray-800;
+    
 }
 .daycontainer{
-    min-width: 60px;
+    min-width: 65px;
 }
 .block{
     height: 127px;
@@ -240,4 +243,10 @@ html,body{
 .selected{
     color: white;
     background-color: $primary;
+}
+.dropdown-item:hover {
+    color: white;
+    background-color: $primary;
+    cursor:pointer;
+    text-decoration: underline;
 }
