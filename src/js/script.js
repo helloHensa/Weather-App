@@ -8,6 +8,11 @@ import apiKeys from './apiKey';
 const apiKey = apiKeys.openWeather;
 const gApi = apiKeys.google;
 
+let deviceLocationMethod = false;
+
+let locationError = document.getElementById("location-error")
+let deviceLocation = document.getElementById("device-location");
+let navbar = document.getElementById("navbar");
 let change = document.getElementById("change");
 let getlocation = document.getElementById("welcome")
 let weatherShow = document.getElementById("weather")
@@ -64,6 +69,24 @@ function mapWeatherIcon(iconCode) {
 
   return iconClass || 'bi-question';
 }
+checkStoredLocation();
+
+//search window behavior
+let x = window.matchMedia("(min-width: 768px)")
+function searchWindow(x){
+  if (x.matches) {
+    document.body.style.height = '100%';
+    document.documentElement.style.height = '100%';
+  }else{
+    document.body.style.height = 'auto';
+    document.documentElement.style.height = 'auto';
+  }
+};
+searchWindow(x)
+
+
+
+
 function start() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -72,28 +95,64 @@ function start() {
         const longitude = position.coords.longitude;
 
         console.log(`Twoja lokalizacja: ${latitude}, ${longitude}`);
+        deviceLocationMethod = true;
+        saveMethodToStorage('location');
+        znazwy(`${latitude}, ${longitude}`);
       },
       function (error) {
         console.error(`Błąd pobierania lokalizacji: ${error.message}`);
+        locationError.textContent = 'Udostępnij swoją lokalizację aby skorzystać z tej opcji';
       }
     );
   } else {
     console.error("Twoja przeglądarka nie obsługuje geolokalizacji.");
   }
-
-  
+ 
 }
 
-let text = false;
+
+
+// local storage
+function saveLocationToStorage(location, method) {
+  localStorage.setItem('lastLocation', JSON.stringify(location));
+}
+function saveMethodToStorage(method) {
+  localStorage.setItem('method', JSON.stringify(method));
+}
+
+function getLastLocationFromStorage() {
+  const lastLocation = localStorage.getItem('lastLocation');
+  return lastLocation ? JSON.parse(lastLocation) : null;
+}
+function getMethod() {
+  const method = localStorage.getItem('method');
+  return method ? JSON.parse(method) : null;
+}
+function checkStoredLocation() {
+  const storedLocation = getLastLocationFromStorage();
+  const storedMethod = getMethod();
+  if (storedLocation) {
+      drawWeather(storedLocation);
+  } else {
+      navbar.classList.remove('hide');
+      getlocation.classList.remove('hide');
+      
+  }
+  if (storedMethod == 'location'){
+    deviceLocationMethod = true;
+  }
+}
+
 
 async function getCityCoordinates(cityName) {
   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=${gApi}`);
   const city = await response.json();
   let address;
   address = city.results[0].formatted_address;
-  if(text){
+  if(deviceLocationMethod){
     address = city.results[5].formatted_address;
   }
+    
     console.log(city);
     const lat = city.results[0].geometry.location.lat;
     const lon = city.results[0].geometry.location.lng;
@@ -118,11 +177,37 @@ async function getAirQuality(city) {
   const dataAir = await responseAir.json();
   console.log(dataAir);
   return dataAir;
-}  
+}
+
+change.addEventListener('click', function() {
+  weatherShow.classList.add('hide');
+  getlocation.classList.remove('hide');
+  change.classList.add('hide');
+  localStorage.removeItem('lastLocation');
+  localStorage.removeItem('method');
+  deviceLocationMethod = false;
+  locationError.textContent = '';
+})
+
 async function drawWeather(city) {
-  getlocation.style.display = 'none';
   weatherShow.classList.remove('hide');
+  getlocation.classList.add('hide');
   change.classList.remove('hide');
+  navbar.classList.remove('hide');
+
+  if (graph.chart) {
+    graph.chart.destroy();
+  }
+  hoursContainer.innerHTML = '';
+  hoursRainContainer.innerHTML = '';
+  daysContainer.innerHTML = '';
+
+  let x = window.matchMedia("(min-width: 768px)")
+  searchWindow(x);
+  x.addEventListener("change", function() {
+    searchWindow(x);
+  }); 
+  
 //taking weather data
   const weatherData = await getWeatherData(city);
   const address = await getCityCoordinates(city);
@@ -188,7 +273,7 @@ async function drawWeather(city) {
     hoursContainer.innerHTML += html; 
   }
   //temparatue chart
-  new Chart(graph, {
+  graph.chart = new Chart(graph, {
     type: 'line',
     data: {
       labels: hoursLabels,
@@ -354,17 +439,7 @@ async function drawWeather(city) {
   uvIndexDesc.style.color = uvColor;
 };
 
-//search window behavior
-function searchWindow(x){
-  if (x.matches) {
-    document.body.style.height = '100%';
-    document.documentElement.style.height = '100%';
-  }else{
-    document.body.style.height = 'auto';
-    document.documentElement.style.height = 'auto';
-  }
-}
-let x = window.matchMedia("(min-width: 768px)")
+
 
 
 
@@ -452,24 +527,20 @@ inputField.addEventListener('click', function(event) {
 
 const searchButton = document.getElementById('search-button');
 
+deviceLocation.addEventListener('click', function(){
+  start()
+})
 
 searchButton.addEventListener('click', function() {
   znazwy(inputField.value);
 });
 
-change.addEventListener('click', function() {
-  location.reload();
-})
 
-//drawWeather('polska');
-function zlokalizacji(){
-  text = true;
-  drawWeather('50.1437776, 18.7756856');
-}
+
+
 function znazwy(value){
-  searchWindow(x);
+  
   drawWeather(value);
-  x.addEventListener("change", function() {
-    searchWindow(x);
-  }); 
+  saveLocationToStorage(value);
+  
 }

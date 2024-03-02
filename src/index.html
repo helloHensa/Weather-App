@@ -11,7 +11,7 @@
 <body>
 <section class="h-100  d-flex align-items-center justify-content-center all">
     <section class="">
-        <nav class="navbar p-0">
+        <nav class="navbar p-0 hide" id="navbar">
             <div class="container text-light bg-secondary p-3 rounded-top-3">
                 <span>
                     Weather App
@@ -24,7 +24,7 @@
         
         
         <!-- getting location -->
-        <section class="bg-dark rounded-bottom-2 h-100" id="welcome">
+        <section class="bg-dark rounded-bottom-2 h-100 hide" id="welcome">
         
         <div class="container text-center px-4">
             <div class="py-4 text-start">
@@ -42,9 +42,10 @@
             
             <div class="separator"></div>
         
+            <span class="text-danger d-block py-3" id="location-error"></span>
             
-            <div class="py-4">
-                <button class="btn btn-primary w-100 p-2">Get Device Location</button>
+            <div class="pb-4">
+                <button class="btn btn-primary w-100 p-2" id="device-location">Get Device Location</button>
             </div>
         </div>
         </section> 
