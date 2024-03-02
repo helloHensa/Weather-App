@@ -38,6 +38,10 @@ let uvIndex = document.getElementById("uvIndex");
 let uvIndexDesc = document.getElementById("uvIndexDesc");
 
 
+let x = window.matchMedia("(min-width: 768px)");
+const searchWindowListener = function() {
+  searchWindow(x);
+};
 
 const userLanguage = navigator.language || navigator.userLanguage;
 const dateFormatter = new Intl.DateTimeFormat(userLanguage, { weekday: 'long' });
@@ -72,7 +76,8 @@ function mapWeatherIcon(iconCode) {
 checkStoredLocation();
 
 //search window behavior
-let x = window.matchMedia("(min-width: 768px)")
+
+
 function searchWindow(x){
   if (x.matches) {
     document.body.style.height = '100%';
@@ -82,7 +87,7 @@ function searchWindow(x){
     document.documentElement.style.height = 'auto';
   }
 };
-searchWindow(x)
+
 
 
 
@@ -187,6 +192,11 @@ change.addEventListener('click', function() {
   localStorage.removeItem('method');
   deviceLocationMethod = false;
   locationError.textContent = '';
+  document.body.style.height = '100%';
+  document.documentElement.style.height = '100%';
+  
+  x.removeEventListener("change", searchWindowListener);
+
 })
 
 async function drawWeather(city) {
@@ -202,11 +212,9 @@ async function drawWeather(city) {
   hoursRainContainer.innerHTML = '';
   daysContainer.innerHTML = '';
 
-  let x = window.matchMedia("(min-width: 768px)")
+  
   searchWindow(x);
-  x.addEventListener("change", function() {
-    searchWindow(x);
-  }); 
+  x.addEventListener("change", searchWindowListener)
   
 //taking weather data
   const weatherData = await getWeatherData(city);
