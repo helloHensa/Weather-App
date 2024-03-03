@@ -142,11 +142,18 @@ html,body{
 .block{
     height: 127px;
     
+    
 }
 .block-el{
     height:100px;
 }
+.block-inside{
+    background-color: $gray-800;
 
+}
+.gap{
+    gap: 5px;
+}
 .sunriseBlock{
     margin:auto;
     max-width: 350px;
