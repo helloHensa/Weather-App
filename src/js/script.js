@@ -112,15 +112,17 @@ function getMethod() {
 function checkStoredLocation() {
   const storedLocation = getLastLocationFromStorage();
   const storedMethod = getMethod();
-  if (storedLocation) {
-      drawWeather(storedLocation);
-  } else {
+  if (storedMethod == 'location'){
+    deviceLocationMethod = true;
+  }
+  if (storedLocation && deviceLocationMethod) {
+    start();
+  }else if (storedLocation){
+    drawWeather(storedLocation);
+  }else {
       navbar.classList.remove('hide');
       getlocation.classList.remove('hide');
       
-  }
-  if (storedMethod == 'location'){
-    deviceLocationMethod = true;
   }
 }
 
