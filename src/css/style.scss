@@ -20,29 +20,39 @@ $container-max-widths: (
 @import "~bootstrap/scss/bootstrap";
 
 *{
-    scrollbar-color: #7b71ec rgba($gray-600, .3);
+    scrollbar-color: #CCCCCC #333333;
 }
 /* Styl dla suwaka pionowego */
 ::-webkit-scrollbar {
     width: 0px; /* Szerokość suwaka */
-  }
-  ::-webkit-scrollbar-thumb:horizontal {
+}
+::-webkit-scrollbar-thumb:horizontal {
     background-color: $gray-600;
     border-radius: 10px;
-    
-  }
+
+}
   
-  ::-webkit-scrollbar-track:horizontal {
+::-webkit-scrollbar-track:horizontal {
     background-color: #ffffff00;
-   
-  }
+
+}
 html,body{
     background-color: $info;
     height: 100%;
     margin: 0;
     padding: 0;
 }
-
+.spinner{
+    
+    position: absolute;
+    width: 100vw; 
+    height: 100vh; 
+    color: white;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    display:none;
+}
 .hide{
     display: none;
 }
@@ -116,8 +126,8 @@ html,body{
 }
 #mychart{
     max-height: 90px;
-    padding-left: 26px;
-    padding-right: 24px;
+    padding-left: 2%;
+    padding-right: 1.5%;
     
 
 }
@@ -146,11 +156,13 @@ html,body{
 .hourlyForecast{
     background-color: rgba($gray-700, .4) ; 
     border:1px solid rgba(#383567, .5) ; 
+    scrollbar-color: #7b71ec rgba($gray-600, .3);
 }
 
 #daily{
     background-color: rgba($gray-700, .4) ; 
     border:1px solid rgba(#383567, .5) ; 
+    scrollbar-color: #7b71ec rgba($gray-600, .3);
 }
 .daycontainer{
     min-width: 65px;

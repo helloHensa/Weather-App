@@ -39,6 +39,7 @@ let uvIndex = document.getElementById("uvIndex");
 let uvIndexDesc = document.getElementById("uvIndexDesc");
 
 
+
 let x = window.matchMedia("(min-width: 768px)");
 const searchWindowListener = function() {
   searchWindow(x);
@@ -52,8 +53,6 @@ const dateFormatterShort = new Intl.DateTimeFormat(userLanguage, { weekday: 'sho
 checkStoredLocation();
 
 //search window behavior
-
-
 function searchWindow(x){
   if (x.matches) {
     document.body.style.height = '100%';
@@ -69,6 +68,7 @@ function searchWindow(x){
 
 
 function start() {
+  
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -116,9 +116,13 @@ function checkStoredLocation() {
     deviceLocationMethod = true;
   }
   if (storedLocation && deviceLocationMethod) {
+    document.getElementById("loading").style.display = "block";
     start();
+    
   }else if (storedLocation){
+    
     drawWeather(storedLocation);
+    
   }else {
       navbar.classList.remove('hide');
       getlocation.classList.remove('hide');
@@ -132,8 +136,16 @@ async function getCityCoordinates(cityName) {
   const city = await response.json();
   let address;
   address = city.results[0].formatted_address;
+  //searching for correct format of addres
   if(deviceLocationMethod){
-    address = city.results[5].formatted_address;
+    city.results.forEach(result => {
+    
+      if (result.types[0] === 'locality' && result.types[1] === 'political') {
+        address = result.formatted_address;
+        return;
+      }
+
+    });
   }
     
     console.log(city);
@@ -147,6 +159,7 @@ async function getCityCoordinates(cityName) {
 
 
 async function getWeatherData(city) {
+  
     const coordinates = await getCityCoordinates(city);
     console.log(coordinates);
     const response = await fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric&lang=pl`);
@@ -178,6 +191,7 @@ change.addEventListener('click', function() {
 })
 
 async function drawWeather(city) {
+  document.getElementById("loading").style.display = "none";
   weatherShow.classList.remove('hide');
   getlocation.classList.add('hide');
   change.classList.remove('hide');
@@ -204,7 +218,9 @@ async function drawWeather(city) {
   const hour = format(date, 'HH:mm')
   console.log(`Dzień tygodnia: ${dayOfWeek} ${hour}`);
   let degrees = (weatherData.current.temp).toFixed(0);
-
+  if(degrees == '-0'){
+    degrees = '0'
+  };
   locationName.innerHTML = address.address + ' ';
   currentTemp.innerHTML = degrees + '°';
   currDate.innerHTML = dayOfWeek + ', ' + hour;
@@ -423,6 +439,8 @@ async function drawWeather(city) {
   uvIndex.innerHTML = apiValueUv;
   uvIndexDesc.innerHTML = uvIndexDescription;
   uvIndexDesc.style.color = uvColor;
+
+  
 };
 
 
@@ -514,6 +532,7 @@ inputField.addEventListener('click', function(event) {
 const searchButton = document.getElementById('search-button');
 
 deviceLocation.addEventListener('click', function(){
+  document.getElementById("loading").style.display = "block";
   start()
 })
 
