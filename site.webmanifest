@@ -2,9 +2,9 @@
 "short_name":"Weather App",
 "icons":
 [
-    {"src":"/src/icons/cloud-sun-fill.svg","sizes":"any"}
+    {"src":"/src/icons/clouds_sun_sunny_icon.svg","sizes":"any"}
     
 ],
-"theme_color":"#ffffff",
+"theme_color":"#0dcaf0",
 "background_color":"#0dcaf0",
 "display":"standalone"}
