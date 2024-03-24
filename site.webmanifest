@@ -1,0 +1,10 @@
+{"name":"Weather App",
+"short_name":"Weather App",
+"icons":
+[
+    {"src":"/src/icons/cloud-sun-fill.svg","sizes":"any"}
+    
+],
+"theme_color":"#ffffff",
+"background_color":"#ffffff",
+"display":"standalone"}
