@@ -95,7 +95,7 @@ html,body{
 }
 .separator::before{
     background-color:#212529;
-    content:"or";
+    content:"lub";
     color:#ccc;
     padding: 0 13px 4px 13px;
     font-size: 19px;
@@ -252,23 +252,22 @@ html,body{
 
 .progress-bar {
     padding: 0 1%;
+    margin-bottom: 4%;
     position: relative;
-    height: 20px;
+    height: 32px;
     
 }
 .progress-line{
-    height: 5px;
-    background: linear-gradient(to right, rgb(0, 203, 0),rgb(215, 215, 0),rgb(215, 140, 0), rgb(218, 0, 0));
-    border-radius: 10px;
+    height: 32px;
+    background: linear-gradient(to right, rgb(0, 167, 0),rgb(165, 165, 0),rgb(173, 113, 1), rgb(165, 0, 0));
+    border-radius: 5px;
+    border:1px solid $gray-400;
 } 
 
 .progress-dot{
     margin: 0 5%;
     position: absolute;
-    height: 12px;
-    width: 12px;
-    background-color:white;
-    border-radius: 50%;
+    font-size: 25px;
 }
 .mm{
     height:1px;

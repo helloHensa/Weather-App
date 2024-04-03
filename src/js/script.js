@@ -405,6 +405,13 @@ async function drawWeather(city) {
   
   const progressDotAir = document.getElementById('myProgressDotAir');
   const progressDotUv = document.getElementById('myProgressDotUv');
+  const biEmojis = [
+    '<i class="bi bi-emoji-laughing-fill"></i>',
+    '<i class="bi bi-emoji-smile-fill"></i>',
+    '<i class="bi bi-emoji-neutral-fill"></i>',
+    '<i class="bi bi-emoji-frown-fill"></i>',
+    '<i class="bi bi-emoji-dizzy-fill"></i>'
+  ];
   
   const dotPositionAir = (apiValueAir - 1) * 20;
   progressDotAir.style.left = dotPositionAir + '%';
@@ -413,25 +420,32 @@ async function drawWeather(city) {
   airQualityIndex.innerHTML = apiValueAir;
   airQualityDesc.innerHTML = airQualityDescription[apiValueAir - 1];
   airQualityDesc.style.color = colorClass[apiValueAir - 1];
+  progressDotAir.innerHTML = biEmojis[apiValueAir - 1];
   
   let uvIndexDescription;
   let uvColor;
+  let uvEmoji;
 
   if (apiValueUv <= 2){
     uvIndexDescription = "Niski";
     uvColor = colorClass[0];
+    uvEmoji = biEmojis[0];
   }else if (apiValueUv <=5){
     uvIndexDescription = "Średni"
     uvColor = colorClass[2];
+    uvEmoji = biEmojis[1];
   }else if (apiValueUv <=7){
     uvIndexDescription = "Wysoki"
     uvColor = colorClass[3];
+    uvEmoji = biEmojis[2];
   }else if (apiValueUv <=10){
     uvIndexDescription = "Bardzo Wysoki"
     uvColor = colorClass[4];
+    uvEmoji = biEmojis[3];
   }else {
     uvIndexDescription = "Ekstremalny"
     uvColor = colorClass[5];
+    uvEmoji = biEmojis[4];
   };
 
   const dotPositionUv = ((apiValueUv - 1) / 11) * 100;
@@ -439,7 +453,7 @@ async function drawWeather(city) {
   uvIndex.innerHTML = apiValueUv;
   uvIndexDesc.innerHTML = uvIndexDescription;
   uvIndexDesc.style.color = uvColor;
-
+  progressDotUv.innerHTML = uvEmoji;
   
 };
 

@@ -2,7 +2,7 @@ export function mapWeatherIcon(iconCode) {
   const iconMapping = {
     '01d': 'bi-sun-fill', // Bezchmurne niebo (dzień)
     '01n': 'bi-moon-fill', // Bezchmurne niebo (noc)
-    '02d': 'bi-cloud-sun-fill', // Niewielkie zachmurzenie (dzień)
+    '02d': 'bi-sun-fill', // Niewielkie zachmurzenie (dzień)
     '02n': 'bi-moon-fill', // Niewielkie zachmurzenie (noc)
     '03d': 'bi-cloud-sun-fill', // Częściowe zachmurzenie (dzień)
     '03n': 'bi-cloud-moon-fill', // Częściowe zachmurzenie (noc)
