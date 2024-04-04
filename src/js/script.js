@@ -38,8 +38,6 @@ let airQualityDesc = document.getElementById("airQualityDesc")
 let uvIndex = document.getElementById("uvIndex");
 let uvIndexDesc = document.getElementById("uvIndexDesc");
 
-
-
 let x = window.matchMedia("(min-width: 768px)");
 const searchWindowListener = function() {
   searchWindow(x);
@@ -48,7 +46,6 @@ const searchWindowListener = function() {
 const userLanguage = navigator.language || navigator.userLanguage;
 const dateFormatter = new Intl.DateTimeFormat(userLanguage, { weekday: 'long' });
 const dateFormatterShort = new Intl.DateTimeFormat(userLanguage, { weekday: 'short' });
-
 
 checkStoredLocation();
 
@@ -62,10 +59,6 @@ function searchWindow(x){
     document.documentElement.style.height = 'auto';
   }
 };
-
-
-
-
 
 function start() {
   
@@ -88,10 +81,7 @@ function start() {
   } else {
     console.error("Twoja przeglądarka nie obsługuje geolokalizacji.");
   }
- 
 }
-
-
 
 // local storage
 function saveLocationToStorage(location, method) {
@@ -118,18 +108,13 @@ function checkStoredLocation() {
   if (storedLocation && deviceLocationMethod) {
     document.getElementById("loading").style.display = "block";
     start();
-    
   }else if (storedLocation){
-    
     drawWeather(storedLocation);
-    
   }else {
       navbar.classList.remove('hide');
       getlocation.classList.remove('hide');
-      
   }
 }
-
 
 async function getCityCoordinates(cityName) {
   const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=${gApi}`);
@@ -139,24 +124,18 @@ async function getCityCoordinates(cityName) {
   //searching for correct format of addres
   if(deviceLocationMethod){
     city.results.forEach(result => {
-    
       if (result.types[0] === 'locality' && result.types[1] === 'political') {
         address = result.formatted_address;
         return;
       }
-
     });
   }
-    
     console.log(city);
     const lat = city.results[0].geometry.location.lat;
     const lon = city.results[0].geometry.location.lng;
    
     return {lat, lon, address};
-  
-  
 }
-
 
 async function getWeatherData(city) {
   
@@ -208,7 +187,7 @@ async function drawWeather(city) {
   searchWindow(x);
   x.addEventListener("change", searchWindowListener)
   
-//taking weather data
+  //taking weather data
   const weatherData = await getWeatherData(city);
   const address = await getCityCoordinates(city);
   const airQuality = await getAirQuality(city);
