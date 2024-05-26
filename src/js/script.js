@@ -1,8 +1,6 @@
 import 'bootstrap';
-import img from '../Icons/clouds_sun_sunny_icon.svg';
 import Chart from 'chart.js/auto';
 import { format, fromUnixTime, setDate } from 'date-fns';
-import compromise from 'compromise';
 import apiKeys from './apiKey';
 import { mapWeatherIcon } from './mapWeatherIcon';
 
