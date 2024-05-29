@@ -364,21 +364,18 @@ async function drawWeather(city) {
 
   const timeOffset = weatherData.timezone_offset - 7200;
 
-  // Funkcja do formatowania czasu z uwzględnieniem offsetu
   const formatWithOffset = (timestamp) => {
     const utcDate = fromUnixTime(timestamp);
     return new Date(utcDate.getTime() + timeOffset * 1000);
   };
-  
-  // Pobierz czas wschodu słońca z uwzględnieniem offsetu
+
   const sunriseData = formatWithOffset(weatherData.current.sunrise);
   console.log(timeOffset);
   console.log(weatherData.current.sunrise);
   console.log(sunriseData);
   const sunriseHour = format(sunriseData, 'HH:mm');
   sunrise.innerHTML = sunriseHour;
-  
-  // Pobierz czas zachodu słońca z uwzględnieniem offsetu
+
   const sunsetData = formatWithOffset(weatherData.current.sunset);
   const sunsetHour = format(sunsetData, 'HH:mm');
   sunset.innerHTML = sunsetHour;
