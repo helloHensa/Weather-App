@@ -9,7 +9,7 @@ const gApi = apiKeys.google;
 
 let deviceLocationMethod = false;
 
-let locationError = document.getElementById("location-error")
+let locationError = document.getElementById("location-error");
 let deviceLocation = document.getElementById("device-location");
 let navbar = document.getElementById("navbar");
 let change = document.getElementById("change");
@@ -19,22 +19,8 @@ let hoursContainer = document.getElementById("hourly");
 let hoursRainContainer = document.getElementById("hourlyRain");
 let daysContainer = document.getElementById("daily");
 let graph = document.getElementById("mychart");
-let currentTemp = document.getElementById("currentTemp")
-let currMax = document.getElementById("currMax");
-let currMin = document.getElementById("currMin");
-let currFeels = document.getElementById("currFeels");
-let currDate = document.getElementById("currDate");
-let currImg = document.getElementById("currImg");
 let locationName = document.getElementById("locationName");
-let sunrise = document.getElementById("sunrise");
-let sunset = document.getElementById("sunset");
-let humidity = document.getElementById("humidity");
-let pressure = document.getElementById("pressure");
 let wind = document.getElementById("wind");
-let airQualityIndex = document.getElementById("airQualityIndex");
-let airQualityDesc = document.getElementById("airQualityDesc")
-let uvIndex = document.getElementById("uvIndex");
-let uvIndexDesc = document.getElementById("uvIndexDesc");
 
 let x = window.matchMedia("(min-width: 768px)");
 const searchWindowListener = function() {
@@ -168,6 +154,14 @@ change.addEventListener('click', function() {
 })
 
 async function drawWeather(city) {
+
+  let currentTemp = document.getElementById("currentTemp")
+  let currMax = document.getElementById("currMax");
+  let currMin = document.getElementById("currMin");
+  let currFeels = document.getElementById("currFeels");
+  let currDate = document.getElementById("currDate");
+  let currImg = document.getElementById("currImg");
+
   document.getElementById("loading").style.display = "none";
   weatherShow.classList.remove('hide');
   getlocation.classList.add('hide');
@@ -360,12 +354,32 @@ async function drawWeather(city) {
       </div>
     `;
     daysContainer.innerHTML += html;
-  }
-  const sunriseData = fromUnixTime(weatherData.current.sunrise);  
+  };
+
+  let sunrise = document.getElementById("sunrise");
+  let sunset = document.getElementById("sunset");
+  let humidity = document.getElementById("humidity");
+  let pressure = document.getElementById("pressure");
+
+
+  const timeOffset = weatherData.timezone_offset - 7200;
+
+  // Funkcja do formatowania czasu z uwzględnieniem offsetu
+  const formatWithOffset = (timestamp) => {
+    const utcDate = fromUnixTime(timestamp);
+    return new Date(utcDate.getTime() + timeOffset * 1000);
+  };
+  
+  // Pobierz czas wschodu słońca z uwzględnieniem offsetu
+  const sunriseData = formatWithOffset(weatherData.current.sunrise);
+  console.log(timeOffset);
+  console.log(weatherData.current.sunrise);
+  console.log(sunriseData);
   const sunriseHour = format(sunriseData, 'HH:mm');
   sunrise.innerHTML = sunriseHour;
-
-  const sunsetData = fromUnixTime(weatherData.current.sunset);  
+  
+  // Pobierz czas zachodu słońca z uwzględnieniem offsetu
+  const sunsetData = formatWithOffset(weatherData.current.sunset);
   const sunsetHour = format(sunsetData, 'HH:mm');
   sunset.innerHTML = sunsetHour;
 
@@ -373,12 +387,9 @@ async function drawWeather(city) {
   pressure.innerHTML = weatherData.current.pressure + ' hPa'
   wind.innerHTML = (weatherData.current.wind_speed).toFixed(0) + ' km/h'
 
-  
   const apiValueAir = airQuality.list[0].main.aqi; 
   
- 
   const apiValueUv = (weatherData.current.uvi + 1).toFixed(0); 
-  
   
   const progressDotAir = document.getElementById('myProgressDotAir');
   const progressDotUv = document.getElementById('myProgressDotUv');
@@ -389,6 +400,11 @@ async function drawWeather(city) {
     '<i class="bi bi-emoji-frown-fill"></i>',
     '<i class="bi bi-emoji-dizzy-fill"></i>'
   ];
+
+  let airQualityIndex = document.getElementById("airQualityIndex");
+  let airQualityDesc = document.getElementById("airQualityDesc")
+  let uvIndex = document.getElementById("uvIndex");
+  let uvIndexDesc = document.getElementById("uvIndexDesc");  
   
   const dotPositionAir = (apiValueAir - 1) * 20;
   progressDotAir.style.left = dotPositionAir + '%';
@@ -433,9 +449,6 @@ async function drawWeather(city) {
   progressDotUv.innerHTML = uvEmoji;
   
 };
-
-
-
 
 
 // search autocomplete
