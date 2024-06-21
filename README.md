@@ -61,4 +61,4 @@ Navigate through hourly and daily forecasts to plan ahead.
 Enjoy the interactive charts provided by Chart.js to visualize weather trends.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License
